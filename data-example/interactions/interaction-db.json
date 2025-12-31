@@ -1,0 +1,1139 @@
+{
+  "version": "1.0.0",
+  "created_at": "2025-12-31T12:34:56.789Z",
+  "last_updated": "2025-12-31T12:34:56.789Z",
+  "statistics": {
+    "total_rules": 30,
+    "by_severity": {
+      "A": 0,
+      "B": 2,
+      "C": 8,
+      "D": 17,
+      "X": 3
+    },
+    "by_type": {
+      "drug_drug": 21,
+      "drug_disease": 4,
+      "drug_dosage": 2,
+      "drug_food": 3
+    }
+  },
+  "interactions": [
+    {
+      "id": "int_001",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {
+          "name": "华法林",
+          "generic_name": "Warfarin",
+          "category": "抗凝药",
+          "synonyms": ["可迈丁", "Coumadin"]
+        },
+        {
+          "name": "阿司匹林",
+          "generic_name": "Aspirin",
+          "category": "抗血小板药",
+          "synonyms": ["乙酰水杨酸"]
+        }
+      ],
+      "severity": {
+        "level": "X",
+        "level_name": "绝对禁忌",
+        "level_code": 5,
+        "color": "🆘"
+      },
+      "interaction_details": {
+        "mechanism": "阿司匹林抑制血小板功能，与华法林的抗凝作用产生协同效应",
+        "effect": "显著增加出血风险",
+        "clinical_impact": "可能导致严重出血，包括颅内出血、消化道出血等"
+      },
+      "recommendations": [
+        "避免合用，除非有明确的心血管适应症且在专科医生指导下使用",
+        "如必须合用，需密切监测凝血功能（INR值）",
+        "患者应观察出血迹象：瘀斑、牙龈出血、鼻出血、黑便等"
+      ],
+      "management": {
+        "action": "avoid",
+        "monitoring": ["凝血功能（INR）", "出血症状", "血红蛋白"]
+      },
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_002",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {
+          "name": "华法林",
+          "generic_name": "Warfarin",
+          "category": "抗凝药"
+        },
+        {
+          "name": "布洛芬",
+          "generic_name": "Ibuprofen",
+          "category": "NSAID",
+          "synonyms": ["芬必得", "Motrin"]
+        }
+      ],
+      "severity": {
+        "level": "D",
+        "level_name": "禁忌",
+        "level_code": 4,
+        "color": "🔴"
+      },
+      "interaction_details": {
+        "mechanism": "NSAID抑制血小板功能并可能损伤胃黏膜",
+        "effect": "增加出血风险",
+        "clinical_impact": "消化道出血风险增加2-3倍"
+      },
+      "recommendations": [
+        "避免合用",
+        "如必须使用NSAID，考虑使用COX-2抑制剂",
+        "同时使用质子泵抑制剂保护胃黏膜"
+      ],
+      "management": {
+        "action": "avoid",
+        "monitoring": ["出血症状", "粪便潜血"]
+      },
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_003",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {
+          "name": "地高辛",
+          "generic_name": "Digoxin",
+          "category": "强心苷"
+        },
+        {
+          "name": "呋塞米",
+          "generic_name": "Furosemide",
+          "category": "排钾利尿剂",
+          "synonyms": ["速尿"]
+        }
+      ],
+      "severity": {
+        "level": "D",
+        "level_name": "禁忌",
+        "level_code": 4,
+        "color": "🔴"
+      },
+      "interaction_details": {
+        "mechanism": "排钾利尿剂导致低钾血症，增加心肌对地高辛的敏感性",
+        "effect": "增加地高辛中毒风险",
+        "clinical_impact": "可能出现心律失常、恶心、呕吐等中毒症状"
+      },
+      "recommendations": [
+        "避免合用，如必须合用需密切监测血钾和地高辛血药浓度",
+        "考虑使用保钾利尿剂或补充钾剂",
+        "出现中毒症状立即就医"
+      ],
+      "management": {
+        "action": "avoid",
+        "monitoring": ["血钾", "地高辛血药浓度", "心电图"]
+      },
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_004",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {
+          "name": "依那普利",
+          "generic_name": "Enalapril",
+          "category": "ACEI"
+        },
+        {
+          "name": "螺内酯",
+          "generic_name": "Spironolactone",
+          "category": "保钾利尿剂"
+        }
+      ],
+      "severity": {
+        "level": "D",
+        "level_name": "禁忌",
+        "level_code": 4,
+        "color": "🔴"
+      },
+      "interaction_details": {
+        "mechanism": "ACEI减少醛固酮分泌，螺内酯保钾，两者协同导致高钾血症",
+        "effect": "血钾升高",
+        "clinical_impact": "严重高钾血症可能导致心律失常甚至心脏骤停"
+      },
+      "recommendations": [
+        "避免合用，特别是肾功能不全患者",
+        "如必须合用，需密切监测血钾",
+        "避免补钾或使用含钾盐替代品"
+      ],
+      "management": {
+        "action": "avoid",
+        "monitoring": ["血钾", "肾功能", "心电图"]
+      },
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_005",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {
+          "name": "硝酸甘油",
+          "generic_name": "Nitroglycerin",
+          "category": "硝酸酯类"
+        },
+        {
+          "name": "西地那非",
+          "generic_name": "Sildenafil",
+          "category": "PDE5抑制剂",
+          "synonyms": ["万艾可", "Viagra"]
+        }
+      ],
+      "severity": {
+        "level": "X",
+        "level_name": "绝对禁忌",
+        "level_code": 5,
+        "color": "🆘"
+      },
+      "interaction_details": {
+        "mechanism": "两者均扩张血管，产生协同降压作用",
+        "effect": "严重低血压",
+        "clinical_impact": "可能导致晕厥、休克，甚至危及生命"
+      },
+      "recommendations": [
+        "严格禁止合用",
+        "使用硝酸甘油的患者禁用PDE5抑制剂",
+        "如需使用PDE5抑制剂，应停用硝酸甘油至少24小时"
+      ],
+      "management": {
+        "action": "avoid",
+        "monitoring": ["血压", "心率"]
+      },
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_006",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {
+          "name": "氨氯地平",
+          "generic_name": "Amlodipine",
+          "category": "钙通道阻滞剂"
+        },
+        {
+          "name": "辛伐他汀",
+          "generic_name": "Simvastatin",
+          "category": "他汀类"
+        }
+      ],
+      "severity": {
+        "level": "D",
+        "level_name": "禁忌",
+        "level_code": 4,
+        "color": "🔴"
+      },
+      "interaction_details": {
+        "mechanism": "氨氯地平抑制辛伐他汀通过CYP3A4代谢，增加血药浓度",
+        "effect": "增加肌肉毒性风险",
+        "clinical_impact": "肌痛、肌炎、横纹肌溶解风险增加2-3倍"
+      },
+      "recommendations": [
+        "建议辛伐他汀剂量不超过20mg",
+        "考虑换用不经CYP3A4代谢的他汀（如瑞舒伐他汀、普伐他汀）",
+        "如出现肌肉疼痛、无力，立即就医并检测肌酸激酶"
+      ],
+      "management": {
+        "action": "adjust",
+        "monitoring": ["肌酸激酶(CK)", "肌肉症状"]
+      },
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_007",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {
+          "name": "克拉霉素",
+          "generic_name": "Clarithromycin",
+          "category": "大环内酯类抗生素"
+        },
+        {
+          "name": "辛伐他汀",
+          "generic_name": "Simvastatin",
+          "category": "他汀类"
+        }
+      ],
+      "severity": {
+        "level": "X",
+        "level_name": "绝对禁忌",
+        "level_code": 5,
+        "color": "🆘"
+      },
+      "interaction_details": {
+        "mechanism": "克拉霉素强效抑制CYP3A4，显著增加辛伐他汀血药浓度",
+        "effect": "横纹肌溶解风险急剧增加",
+        "clinical_impact": "可能导致急性肾功能衰竭甚至死亡"
+      },
+      "recommendations": [
+        "严格禁止合用",
+        "使用大环内酯类抗生素期间应暂停辛伐他汀",
+        "考虑换用不经CYP3A4代谢的他汀"
+      ],
+      "management": {
+        "action": "avoid",
+        "monitoring": ["肌酸激酶(CK)", "肾功能"]
+      },
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_008",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {
+          "name": "甲硝唑",
+          "generic_name": "Metronidazole",
+          "category": "抗生素"
+        },
+        {
+          "name": "酒精",
+          "generic_name": "Alcohol",
+          "category": "其他"
+        }
+      ],
+      "severity": {
+        "level": "D",
+        "level_name": "禁忌",
+        "level_code": 4,
+        "color": "🔴"
+      },
+      "interaction_details": {
+        "mechanism": "甲硝唑抑制乙醛脱氢酶，导致乙醛蓄积",
+        "effect": "双硫仑样反应",
+        "clinical_impact": "面部潮红、头痛、恶心、呕吐、胸闷、心悸、血压下降"
+      },
+      "recommendations": [
+        "服药期间及停药后至少3天内禁止饮酒",
+        "避免含酒精的饮料、食物和药物（如藿香正气水）"
+      ],
+      "management": {
+        "action": "avoid",
+        "monitoring": ["血压", "心率"]
+      },
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_009",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {
+          "name": "头孢哌酮",
+          "generic_name": "Cefoperazone",
+          "category": "头孢菌素类"
+        },
+        {
+          "name": "酒精",
+          "generic_name": "Alcohol",
+          "category": "其他"
+        }
+      ],
+      "severity": {
+        "level": "D",
+        "level_name": "禁忌",
+        "level_code": 4,
+        "color": "🔴"
+      },
+      "interaction_details": {
+        "mechanism": "头孢哌酮抑制乙醛脱氢酶，导致乙醛蓄积",
+        "effect": "双硫仑样反应",
+        "clinical_impact": "面部潮红、头痛、胸闷、心悸、血压下降，严重者可休克"
+      },
+      "recommendations": [
+        "服药期间及停药后至少7天内禁止饮酒",
+        "避免含酒精的饮料和药物"
+      ],
+      "management": {
+        "action": "avoid",
+        "monitoring": ["血压", "心率"]
+      },
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_010",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {
+          "name": "苯妥英钠",
+          "generic_name": "Phenytoin",
+          "category": "抗癫痫药"
+        },
+        {
+          "name": "华法林",
+          "generic_name": "Warfarin",
+          "category": "抗凝药"
+        }
+      ],
+      "severity": {
+        "level": "C",
+        "level_name": "相对禁忌",
+        "level_code": 3,
+        "color": "🟠"
+      },
+      "interaction_details": {
+        "mechanism": "苯妥英钠诱导肝酶，加速华法林代谢",
+        "effect": "降低华法林抗凝效果",
+        "clinical_impact": "INR值降低，血栓形成风险增加"
+      },
+      "recommendations": [
+        "如需合用，需密切监测INR值",
+        "可能需要增加华法林剂量",
+        "停用苯妥英钠时需相应减少华法林剂量"
+      ],
+      "management": {
+        "action": "monitor",
+        "monitoring": ["INR值", "华法林血药浓度"]
+      },
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_011",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {
+          "name": "左氧氟沙星",
+          "generic_name": "Levofloxacin",
+          "category": "氟喹诺酮类"
+        },
+        {
+          "name": "泼尼松",
+          "generic_name": "Prednisone",
+          "category": "糖皮质激素"
+        }
+      ],
+      "severity": {
+        "level": "D",
+        "level_name": "禁忌",
+        "level_code": 4,
+        "color": "🔴"
+      },
+      "interaction_details": {
+        "mechanism": "氟喹诺酮类和糖皮质激素均可能影响肌腱功能",
+        "effect": "肌腱炎和肌腱断裂风险增加",
+        "clinical_impact": "特别是跟腱，可能需要手术修复"
+      },
+      "recommendations": [
+        "避免合用，特别是老年患者和肾移植患者",
+        "如出现肌腱疼痛或炎症，立即停药并就医"
+      ],
+      "management": {
+        "action": "avoid",
+        "monitoring": ["肌腱症状"]
+      },
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_012",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {
+          "name": "磺胺甲噁唑",
+          "generic_name": "Sulfamethoxazole",
+          "category": "磺胺类"
+        },
+        {
+          "name": "华法林",
+          "generic_name": "Warfarin",
+          "category": "抗凝药"
+        }
+      ],
+      "severity": {
+        "level": "C",
+        "level_name": "相对禁忌",
+        "level_code": 3,
+        "color": "🟠"
+      },
+      "interaction_details": {
+        "mechanism": "磺胺类从白蛋白结合位点置换华法林，并抑制其代谢",
+        "effect": "增强华法林抗凝作用",
+        "clinical_impact": "INR值升高，出血风险增加"
+      },
+      "recommendations": [
+        "合用需密切监测INR值",
+        "可能需要减少华法林剂量",
+        "观察出血迹象"
+      ],
+      "management": {
+        "action": "monitor",
+        "monitoring": ["INR值", "出血症状"]
+      },
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_013",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {
+          "name": "氟西汀",
+          "generic_name": "Fluoxetine",
+          "category": "SSRI",
+          "synonyms": ["百忧解", "Prozac"]
+        },
+        {
+          "name": "曲马多",
+          "generic_name": "Tramadol",
+          "category": "镇痛药"
+        }
+      ],
+      "severity": {
+        "level": "D",
+        "level_name": "禁忌",
+        "level_code": 4,
+        "color": "🔴"
+      },
+      "interaction_details": {
+        "mechanism": "两者均增加5-羟色胺水平，协同作用",
+        "effect": "5-羟色胺综合征风险",
+        "clinical_impact": "激越、意识模糊、肌肉僵硬、发热、癫痫发作"
+      },
+      "recommendations": [
+        "避免合用",
+        "如必须合用，需密切观察5-羟色胺综合征症状"
+      ],
+      "management": {
+        "action": "avoid",
+        "monitoring": ["神经系统症状", "体温", "肌肉状态"]
+      },
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_014",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {
+          "name": "地西泮",
+          "generic_name": "Diazepam",
+          "category": "苯二氮卓类",
+          "synonyms": ["安定"]
+        },
+        {
+          "name": "酒精",
+          "generic_name": "Alcohol",
+          "category": "其他"
+        }
+      ],
+      "severity": {
+        "level": "D",
+        "level_name": "禁忌",
+        "level_code": 4,
+        "color": "🔴"
+      },
+      "interaction_details": {
+        "mechanism": "两者均增强CNS抑制作用，协同效应",
+        "effect": "过度镇静和呼吸抑制",
+        "clinical_impact": "可能导致昏迷、呼吸抑制甚至死亡"
+      },
+      "recommendations": [
+        "严格避免饮酒",
+        "服药期间避免驾驶或操作机械"
+      ],
+      "management": {
+        "action": "avoid",
+        "monitoring": ["意识状态", "呼吸功能"]
+      },
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_015",
+      "type": "drug_disease",
+      "type_name": "药物-疾病相互作用",
+      "drug": {
+        "name": "布洛芬",
+        "generic_name": "Ibuprofen",
+        "category": "NSAID",
+        "synonyms": ["芬必得"]
+      },
+      "disease": {
+        "name": "消化性溃疡",
+        "icd_code": "K25",
+        "synonyms": ["胃溃疡", "十二指肠溃疡", "peptic ulcer"]
+      },
+      "severity": {
+        "level": "X",
+        "level_name": "绝对禁忌",
+        "level_code": 5,
+        "color": "🆘"
+      },
+      "interaction_details": {
+        "mechanism": "NSAID抑制前列腺素合成，削弱胃黏膜保护",
+        "effect": "加重溃疡，可能导致出血、穿孔",
+        "clinical_impact": "严重并发症风险显著增加"
+      },
+      "recommendations": [
+        "消化性溃疡活动期禁用NSAID",
+        "溃疡愈合史患者应避免使用NSAID",
+        "如必须使用NSAID，需同时使用质子泵抑制剂",
+        "考虑替代药物（如对乙酰氨基酚）"
+      ],
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_016",
+      "type": "drug_disease",
+      "type_name": "药物-疾病相互作用",
+      "drug": {
+        "name": "普萘洛尔",
+        "generic_name": "Propranolol",
+        "category": "β受体阻滞剂"
+      },
+      "disease": {
+        "name": "哮喘",
+        "icd_code": "J45",
+        "synonyms": ["支气管哮喘"]
+      },
+      "severity": {
+        "level": "D",
+        "level_name": "禁忌",
+        "level_code": 4,
+        "color": "🔴"
+      },
+      "interaction_details": {
+        "mechanism": "β受体阻滞可能诱发支气管痉挛",
+        "effect": "诱发哮喘发作",
+        "clinical_impact": "可能导致严重哮喘发作，甚至哮喘持续状态"
+      },
+      "recommendations": [
+        "哮喘患者应避免使用非选择性β受体阻滞剂",
+        "如需使用β受体阻滞剂，考虑使用选择性β1阻滞剂",
+        "密切监测肺功能"
+      ],
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_017",
+      "type": "drug_disease",
+      "type_name": "药物-疾病相互作用",
+      "drug": {
+        "name": "泼尼松",
+        "generic_name": "Prednisone",
+        "category": "糖皮质激素"
+      },
+      "disease": {
+        "name": "糖尿病",
+        "icd_code": "E11",
+        "synonyms": ["2型糖尿病", "1型糖尿病"]
+      },
+      "severity": {
+        "level": "C",
+        "level_name": "相对禁忌",
+        "level_code": 3,
+        "color": "🟠"
+      },
+      "interaction_details": {
+        "mechanism": "糖皮质激素促进糖异生，降低胰岛素敏感性",
+        "effect": "血糖升高",
+        "clinical_impact": "可能导致血糖控制恶化"
+      },
+      "recommendations": [
+        "糖尿病患者使用糖皮质激素需谨慎",
+        "密切监测血糖",
+        "可能需要调整降糖药物剂量",
+        "尽量使用最低有效剂量"
+      ],
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_018",
+      "type": "drug_disease",
+      "type_name": "药物-疾病相互作用",
+      "drug": {
+        "name": "阿托品",
+        "generic_name": "Atropine",
+        "category": "抗胆碱药"
+      },
+      "disease": {
+        "name": "青光眼",
+        "icd_code": "H40",
+        "synonyms": ["闭角型青光眼", "开角型青光眼"]
+      },
+      "severity": {
+        "level": "D",
+        "level_name": "禁忌",
+        "level_code": 4,
+        "color": "🔴"
+      },
+      "interaction_details": {
+        "mechanism": "抗胆碱药导致瞳孔散大，可能诱发闭角型青光眼急性发作",
+        "effect": "眼压升高",
+        "clinical_impact": "可能导致青光眼急性发作，损害视神经"
+      },
+      "recommendations": [
+        "闭角型青光眼患者禁用",
+        "开角型青光眼患者慎用",
+        "使用后密切监测眼压"
+      ],
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_019",
+      "type": "drug_food",
+      "type_name": "药物-食物相互作用",
+      "drug": {
+        "name": "华法林",
+        "generic_name": "Warfarin",
+        "category": "抗凝药"
+      },
+      "food": {
+        "name": "富含维生素K的食物",
+        "category": "蔬菜",
+        "examples": ["菠菜", "甘蓝", "西兰花", "卷心菜", "生菜", "芥蓝"]
+      },
+      "severity": {
+        "level": "C",
+        "level_name": "相对禁忌",
+        "level_code": 3,
+        "color": "🟠"
+      },
+      "interaction_details": {
+        "mechanism": "维生素K是凝血因子合成所需的辅因子",
+        "effect": "降低华法林抗凝效果",
+        "amount_threshold": "大量摄入时影响显著"
+      },
+      "recommendations": [
+        "保持维生素K摄入量稳定",
+        "避免饮食中维生素K含量剧烈波动",
+        "如增加绿色蔬菜摄入，需告知医生",
+        "定期监测INR值"
+      ],
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_020",
+      "type": "drug_food",
+      "type_name": "药物-食物相互作用",
+      "drug": {
+        "name": "辛伐他汀",
+        "generic_name": "Simvastatin",
+        "category": "他汀类"
+      },
+      "food": {
+        "name": "葡萄柚汁",
+        "category": "果汁",
+        "examples": ["西柚汁", "柚子汁"]
+      },
+      "severity": {
+        "level": "C",
+        "level_name": "相对禁忌",
+        "level_code": 3,
+        "color": "🟠"
+      },
+      "interaction_details": {
+        "mechanism": "葡萄柚汁抑制CYP3A4，减少他汀类药物代谢",
+        "effect": "增加他汀类血药浓度",
+        "clinical_impact": "增加肌肉毒性风险"
+      },
+      "recommendations": [
+        "服用他汀类药物期间避免饮用葡萄柚汁",
+        "如需饮用，应间隔至少4小时",
+        "考虑更换他汀类药物种类"
+      ],
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_021",
+      "type": "drug_food",
+      "type_name": "药物-食物相互作用",
+      "drug": {
+        "name": "苯乙肼",
+        "generic_name": "Phenelzine",
+        "category": "MAOI"
+      },
+      "food": {
+        "name": "富含酪胺的食物",
+        "category": "发酵食品",
+        "examples": ["陈年奶酪", "腌制肉类", "红酒", "啤酒", "豆制品", "香蕉"]
+      },
+      "severity": {
+        "level": "X",
+        "level_name": "绝对禁忌",
+        "level_code": 5,
+        "color": "🆘"
+      },
+      "interaction_details": {
+        "mechanism": "MAOI抑制酪胺代谢，导致酪胺蓄积",
+        "effect": "高血压危象",
+        "clinical_impact": "剧烈头痛、心悸、出汗、高血压，可能脑出血"
+      },
+      "recommendations": [
+        "严格避免食用富含酪胺的食物",
+        "服药期间及停药后2周内均需限制饮食",
+        "详细阅读食品标签，避免含酪胺的食品"
+      ],
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_022",
+      "type": "drug_food",
+      "type_name": "药物-食物相互作用",
+      "drug": {
+        "name": "二甲双胍",
+        "generic_name": "Metformin",
+        "category": "双胍类"
+      },
+      "food": {
+        "name": "酒精",
+        "category": "饮料",
+        "examples": ["白酒", "啤酒", "红酒", "含酒精饮料"]
+      },
+      "severity": {
+        "level": "C",
+        "level_name": "相对禁忌",
+        "level_code": 3,
+        "color": "🟠"
+      },
+      "interaction_details": {
+        "mechanism": "酒精抑制乳酸代谢，增加乳酸酸中毒风险",
+        "effect": "乳酸酸中毒",
+        "clinical_impact": "可能危及生命的代谢并发症"
+      },
+      "recommendations": [
+        "服用二甲双胍期间应限制酒精摄入",
+        "避免大量饮酒或长期饮酒",
+        "肝功能不全者应完全禁酒"
+      ],
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_023",
+      "type": "drug_dosage",
+      "type_name": "药物剂量冲突",
+      "drug": {
+        "name": "地高辛",
+        "generic_name": "Digoxin",
+        "category": "强心苷"
+      },
+      "dosage_limit": {
+        "max_daily_dose": {
+          "value": 0.25,
+          "unit": "mg"
+        },
+        "warning_threshold": {
+          "value": 0.5,
+          "unit": "mg"
+        },
+        "age_adjustments": [
+          {
+            "age_group": "老年人(>65岁)",
+            "max_dose": {"value": 0.125, "unit": "mg"},
+            "note": "老年人肾功能下降，需减量"
+          },
+          {
+            "age_group": "肾功能不全",
+            "reduction": "50%",
+            "note": "根据肌酐清除率调整剂量"
+          }
+        ]
+      },
+      "severity": {
+        "level": "D",
+        "level_name": "禁忌",
+        "level_code": 4,
+        "color": "🔴"
+      },
+      "toxicity_details": {
+        "symptoms": ["恶心", "呕吐", "视觉改变", "心律失常"],
+        "monitoring": ["血药浓度", "心电图", "电解质"],
+        "toxicity_level": "治疗指数窄，过量风险高"
+      },
+      "recommendations": [
+        "严格遵循处方剂量",
+        "老年人需减量",
+        "肾功能不全者需调整剂量",
+        "定期监测地高辛血药浓度"
+      ],
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_024",
+      "type": "drug_dosage",
+      "type_name": "药物剂量冲突",
+      "drug": {
+        "name": "对乙酰氨基酚",
+        "generic_name": "Acetaminophen",
+        "category": "解热镇痛药",
+        "synonyms": ["扑热息痛", "泰诺"]
+      },
+      "dosage_limit": {
+        "max_daily_dose": {
+          "value": 4,
+          "unit": "g"
+        },
+        "warning_threshold": {
+          "value": 3,
+          "unit": "g"
+        },
+        "age_adjustments": [
+          {
+            "age_group": "肝功能不全",
+            "reduction": "50%",
+            "note": "严重肝功能不全者禁用"
+          },
+          {
+            "age_group": "慢性饮酒者",
+            "max_dose": {"value": 2, "unit": "g"},
+            "note": "酒精增加肝毒性风险"
+          }
+        ]
+      },
+      "severity": {
+        "level": "D",
+        "level_name": "禁忌",
+        "level_code": 4,
+        "color": "🔴"
+      },
+      "toxicity_details": {
+        "symptoms": ["恶心", "呕吐", "腹痛", "肝功能异常"],
+        "monitoring": ["肝功能", "凝血功能"],
+        "toxicity_level": "过量可导致急性肝衰竭"
+      },
+      "recommendations": [
+        "成人每日最大剂量4g",
+        "肝功能不全者需减量或禁用",
+        "避免同时服用多种含对乙酰氨基酚的药物",
+        "饮酒者需限制剂量"
+      ],
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_025",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {"name": "阿司匹林", "generic_name": "Aspirin", "category": "抗血小板药"},
+        {"name": "依诺肝素", "generic_name": "Enoxaparin", "category": "低分子肝素"}
+      ],
+      "severity": {
+        "level": "D",
+        "level_name": "禁忌",
+        "level_code": 4,
+        "color": "🔴"
+      },
+      "interaction_details": {
+        "mechanism": "两者均有抗凝作用，协同效应",
+        "effect": "出血风险显著增加",
+        "clinical_impact": "可能引起严重出血"
+      },
+      "recommendations": [
+        "避免合用，除非有明确适应症",
+        "密切监测出血迹象",
+        "定期检测血常规和凝血功能"
+      ],
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_026",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {"name": "卡马西平", "generic_name": "Carbamazepine", "category": "抗癫痫药"},
+        {"name": "华法林", "generic_name": "Warfarin", "category": "抗凝药"}
+      ],
+      "severity": {
+        "level": "C",
+        "level_name": "相对禁忌",
+        "level_code": 3,
+        "color": "🟠"
+      },
+      "interaction_details": {
+        "mechanism": "卡马西平诱导肝酶，加速华法林代谢",
+        "effect": "降低华法林抗凝效果",
+        "clinical_impact": "INR降低，血栓风险增加"
+      },
+      "recommendations": [
+        "合用需密切监测INR",
+        "可能需要增加华法林剂量",
+        "停用卡马西平时需相应调整华法林剂量"
+      ],
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_027",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {"name": "胺碘酮", "generic_name": "Amiodarone", "category": "抗心律失常药"},
+        {"name": "地高辛", "generic_name": "Digoxin", "category": "强心苷"}
+      ],
+      "severity": {
+        "level": "D",
+        "level_name": "禁忌",
+        "level_code": 4,
+        "color": "🔴"
+      },
+      "interaction_details": {
+        "mechanism": "胺碘酮抑制P-糖蛋白，减少地高辛排泄",
+        "effect": "地高辛血药浓度升高",
+        "clinical_impact": "地高辛中毒风险增加"
+      },
+      "recommendations": [
+        "合用时地高辛剂量需减半",
+        "密切监测地高辛血药浓度",
+        "观察中毒症状"
+      ],
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_028",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {"name": "红霉素", "generic_name": "Erythromycin", "category": "大环内酯类"},
+        {"name": "特非那定", "generic_name": "Terfenadine", "category": "抗组胺药"}
+      ],
+      "severity": {
+        "level": "X",
+        "level_name": "绝对禁忌",
+        "level_code": 5,
+        "color": "🆘"
+      },
+      "interaction_details": {
+        "mechanism": "红霉素抑制CYP3A4，减少特非那定代谢",
+        "effect": "特非那定血药浓度显著升高",
+        "clinical_impact": "致命性心律失常（尖端扭转性室速）"
+      },
+      "recommendations": [
+        "严格禁止合用",
+        "特非那定已基本被市场淘汰，但需注意类似药物"
+      ],
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_029",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {"name": "西咪替丁", "generic_name": "Cimetidine", "category": "H2受体阻滞剂"},
+        {"name": "华法林", "generic_name": "Warfarin", "category": "抗凝药"}
+      ],
+      "severity": {
+        "level": "C",
+        "level_name": "相对禁忌",
+        "level_code": 3,
+        "color": "🟠"
+      },
+      "interaction_details": {
+        "mechanism": "西咪替丁抑制肝酶，减少华法林代谢",
+        "effect": "增强华法林抗凝作用",
+        "clinical_impact": "INR升高，出血风险增加"
+      },
+      "recommendations": [
+        "合用需监测INR",
+        "可能需要减少华法林剂量",
+        "考虑使用其他H2受体阻滞剂（如法莫替丁）"
+      ],
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    },
+    {
+      "id": "int_030",
+      "type": "drug_drug",
+      "type_name": "药物-药物相互作用",
+      "drugs": [
+        {"name": "阿司匹林", "generic_name": "Aspirin", "category": "抗血小板药"},
+        {"name": "布洛芬", "generic_name": "Ibuprofen", "category": "NSAID"}
+      ],
+      "severity": {
+        "level": "C",
+        "level_name": "相对禁忌",
+        "level_code": 3,
+        "color": "🟠"
+      },
+      "interaction_details": {
+        "mechanism": "布洛芬干扰阿司匹林的抗血小板作用",
+        "effect": "降低阿司匹林心血管保护作用",
+        "clinical_impact": "可能增加血栓事件风险"
+      },
+      "recommendations": [
+        "如需服用阿司匹林心血管保护，应间隔至少2小时服用布洛芬",
+        "考虑使用其他NSAID",
+        "咨询医生"
+      ],
+      "active": true,
+      "is_custom": false,
+      "created_at": "2025-12-31T12:34:56.789Z"
+    }
+  ],
+  "metadata": {
+    "source": "系统预设数据库",
+    "disclaimer": "本数据库仅供参考，不能替代专业医疗建议",
+    "last_review": "2025-12-31",
+    "next_review": "2026-06-30"
+  }
+}

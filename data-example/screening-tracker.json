@@ -1,0 +1,25 @@
+{
+  "created_at": null,
+  "last_updated": null,
+
+  "cancer_screening": null,
+
+  "statistics": {
+    "total_cervical_screenings": 0,
+    "years_of_screening": 0,
+    "abnormal_results_count": 0,
+    "colposcopies": 0,
+    "tumor_marker_tests": 0,
+    "all_markers_normal": true,
+    "screening_uptodate": false,
+    "next_screening_due": null
+  },
+
+  "settings": {
+    "screening_strategy": "co-testing",
+    "reminder_days_before": 30,
+    "age": null,
+    "screening_age_started": null,
+    "family_history_cancer": []
+  }
+}

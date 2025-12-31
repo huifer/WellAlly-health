@@ -1,0 +1,12 @@
+{
+  "created_at": null,
+  "last_updated": null,
+  "records": [],
+  "statistics": {
+    "total_records": 0,
+    "total_dose": 0,
+    "current_year_dose": 0,
+    "previous_years_residual": 0,
+    "effective_dose": 0
+  }
+}

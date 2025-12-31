@@ -1,0 +1,19 @@
+{
+  "created_at": null,
+  "last_updated": null,
+
+  "vaccination_records": [],
+
+  "statistics": {
+    "total_vaccination_records": 0,
+    "total_doses_administered": 0,
+    "series_completed": 0,
+    "series_in_progress": 0,
+    "single_doses": 0,
+    "overdue_count": 0,
+    "upcoming_30_days": 0,
+    "adverse_reactions_count": 0,
+    "severe_reactions_count": 0,
+    "last_updated": null
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "created_at": null,
+  "last_updated": null,
+
+  "current_pregnancy": null,
+
+  "pregnancy_history": [],
+
+  "statistics": {
+    "total_pregnancies": 0,
+    "current_pregnancy_week": null,
+    "total_weight_gain": null,
+    "average_weekly_gain": null,
+    "checkups_completed": 0,
+    "checkups_scheduled": 0
+  },
+
+  "settings": {
+    "reminder_days_before": 7,
+    "weight_unit": "kg",
+    "preferred_checkup_time": "morning"
+  }
+}

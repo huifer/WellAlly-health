@@ -1,0 +1,46 @@
+{
+  "created_at": "2025-01-01T00:00:00.000Z",
+  "last_updated": "2025-12-31T12:34:56.789Z",
+  "basic_info": {
+    "name": "张三",
+    "gender": "女",
+    "birth_date": "1990-05-15",
+    "blood_type": "A+",
+    "height": 165,
+    "height_unit": "cm",
+    "weight": 58.5,
+    "weight_unit": "kg",
+    "emergency_contacts": [
+      {
+        "name": "李四",
+        "relationship": "配偶",
+        "phone": "138****1234"
+      }
+    ]
+  },
+  "calculated": {
+    "age": 35,
+    "age_years": 35,
+    "bmi": 21.5,
+    "bmi_status": "正常",
+    "body_surface_area": 1.62,
+    "bsa_unit": "m²"
+  },
+  "history": [
+    {
+      "date": "2025-10-01",
+      "weight": 60.8,
+      "bmi": 22.3
+    },
+    {
+      "date": "2025-11-01",
+      "weight": 59.5,
+      "bmi": 21.8
+    },
+    {
+      "date": "2025-12-01",
+      "weight": 58.5,
+      "bmi": 21.5
+    }
+  ]
+}

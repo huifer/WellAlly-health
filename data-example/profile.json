@@ -1,0 +1,20 @@
+{
+  "created_at": null,
+  "last_updated": null,
+  "basic_info": {
+    "height": null,
+    "height_unit": "cm",
+    "weight": null,
+    "weight_unit": "kg",
+    "birth_date": null
+  },
+  "calculated": {
+    "age": null,
+    "age_years": null,
+    "bmi": null,
+    "bmi_status": null,
+    "body_surface_area": null,
+    "bsa_unit": "m²"
+  },
+  "history": []
+}

@@ -1,0 +1,32 @@
+{
+  "created_at": null,
+  "last_updated": null,
+  "user_settings": {
+    "average_cycle_length": 28,
+    "average_period_length": 5,
+    "pregnancy_planning": false
+  },
+  "cycles": [],
+  "current_cycle": null,
+  "statistics": {
+    "total_cycles_tracked": 0,
+    "average_cycle_length": null,
+    "cycle_length_range": [],
+    "average_period_length": null,
+    "most_common_symptoms": {
+      "luteal": [],
+      "follicular": [],
+      "ovulation": [],
+      "menstrual": []
+    },
+    "regularity_score": null
+  },
+  "predictions": {
+    "next_period": null,
+    "next_period_confidence": null,
+    "fertile_window_start": null,
+    "fertile_window_end": null,
+    "ovulation_date": null,
+    "prediction_confidence": null
+  }
+}
