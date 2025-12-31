@@ -1,6 +1,12 @@
 # 个人医疗数据中心 (Personal Health Information System)
 
+[![GitHub stars](https://img.shields.io/github/stars/huifer/Claude-Ally-Health?style=social)](https://github.com/huifer/Claude-Ally-Health)
+[![GitHub forks](https://img.shields.io/github/forks/huifer/Claude-Ally-Health?style=social)](https://github.com/huifer/Claude-Ally-Health)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 基于文件系统的个人医疗健康数据管理系统，使用 Claude Code 命令行工具进行数据管理。
+
+**GitHub**: https://github.com/huifer/Claude-Ally-Health
 
 > Note: 项目使用到 GLM 提供的 mcp__4_5v_mcp__analyze_image 。
 ## 项目开发方
@@ -171,6 +177,8 @@ my-his/
 >
 > 🩺 **专业人员贡献**: 欢迎医疗专家帮助完善数据库 → [贡献指南](docs/drug-interaction-database.md#专业人员贡献指南-)
 
-## 许可
+## 许可证
 
-本系统仅供个人健康管理使用，不作为医疗诊断依据。
+本项目采用 [MIT License](LICENSE) 开源许可证。
+
+**重要声明**: 本系统仅供个人健康管理使用，不作为医疗诊断依据。
