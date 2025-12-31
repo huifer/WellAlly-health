@@ -1,0 +1,14 @@
+{
+  "allergies": [],
+  "statistics": {
+    "total_allergies": 0,
+    "active_allergies": 0,
+    "drug_allergies": 0,
+    "food_allergies": 0,
+    "environmental_allergies": 0,
+    "other_allergies": 0,
+    "severe_count": 0,
+    "anaphylaxis_count": 0,
+    "last_updated": null
+  }
+}

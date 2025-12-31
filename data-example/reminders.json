@@ -1,0 +1,14 @@
+{
+  "created_at": null,
+  "last_updated": null,
+  "reminders": [],
+  "statistics": {
+    "total_reminders": 0,
+    "active_reminders": 0,
+    "overdue_count": 0,
+    "due_today_count": 0,
+    "due_this_week_count": 0,
+    "completion_rate": 0,
+    "last_updated": null
+  }
+}

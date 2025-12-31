@@ -1,0 +1,19 @@
+{
+  "created_at": null,
+  "last_updated": null,
+
+  "menopause_tracking": null,
+
+  "statistics": {
+    "tracking_duration_months": 0,
+    "total_symptom_records": 0,
+    "symptom_trend": "stable",
+    "hrt_use": false,
+    "bone_density_tests": 0
+  },
+
+  "settings": {
+    "reminder_frequency": "monthly",
+    "symptom_tracking_frequency": "weekly"
+  }
+}

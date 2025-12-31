@@ -1,0 +1,990 @@
+{
+  "version": "1.0.0",
+  "created_at": "2025-12-31T12:34:56.789Z",
+  "last_updated": "2025-12-31T12:34:56.789Z",
+
+  "vaccines": [
+    {
+      "id": "hepb",
+      "name": "乙型肝炎疫苗",
+      "english_name": "Hepatitis B Vaccine",
+      "aliases": ["乙肝疫苗", "HepB", "重组乙型肝炎疫苗"],
+      "type": "recombinant",
+      "manufacturers": ["北京生物", "康泰生物", "葛兰素史克", "默沙东"],
+
+      "schedule": {
+        "is_series": true,
+        "series_type": "primary",
+        "standard_schedule": "0-1-6",
+        "doses": [
+          {
+            "dose_number": 1,
+            "timing": "birth",
+            "timing_description": "出生时24小时内",
+            "recommended_age": "0月龄",
+            "min_age": "0月",
+            "max_age": null,
+            "min_interval": null
+          },
+          {
+            "dose_number": 2,
+            "timing": "1_month_after_dose1",
+            "timing_description": "第1剂后1个月",
+            "interval_after_previous_dose": {
+              "value": 1,
+              "unit": "months"
+            },
+            "recommended_age": "1月龄",
+            "min_interval": "4周",
+            "grace_period": null
+          },
+          {
+            "dose_number": 3,
+            "timing": "6_months_after_dose1",
+            "timing_description": "第1剂后6个月",
+            "interval_after_previous_dose": {
+              "value": 5,
+              "unit": "months"
+            },
+            "recommended_age": "6月龄",
+            "min_interval": "16周",
+            "grace_period": "4周"
+          }
+        ],
+        "catch_up": {
+          "1-19岁": {
+            "doses": 3,
+            "intervals": ["0天", "2个月", "4个月"],
+            "notes": "第2剂与第1剂间隔≥2个月，第3剂与第1剂间隔≥4个月"
+          },
+          "20岁+": {
+            "doses": 3,
+            "intervals": ["0天", "1个月", "6个月"],
+            "notes": "标准0-1-6程序"
+          }
+        },
+        "booster": {
+          "required": false,
+          "indications": ["高危人群", "免疫功能低下", "血液透析患者"],
+          "interval": "5年",
+          "notes": "高危人群可考虑加强接种"
+        }
+      },
+
+      "contraindications": [
+        {
+          "type": "allergy",
+          "allergen": "酵母",
+          "severity": "severe",
+          "description": "对疫苗任何成分（包括酵母）严重过敏者禁用"
+        },
+        {
+          "type": "disease",
+          "condition": "严重急性发热性疾病",
+          "severity": "temporary",
+          "description": "发热期应暂缓接种，热退后可补种"
+        }
+      ],
+
+      "age_recommendations": {
+        "recommended_age": "出生时",
+        "min_age": "0月",
+        "max_age": null,
+        "catch_up_schedule": "任何年龄均可开始接种",
+        "notes": "未免疫人群无论年龄均可接种"
+      },
+
+      "interactions": [
+        {
+          "drug_category": "免疫抑制剂",
+          "interaction_type": "reduced_efficacy",
+          "severity": "moderate",
+          "description": "免疫抑制剂可能降低疫苗免疫效果",
+          "recommendation": "接种后2-3个月检测抗体滴度，必要时加强接种"
+        },
+        {
+          "drug_category": "抗凝药物",
+          "interaction_type": "administration",
+          "severity": "mild",
+          "description": "可能增加注射部位出血风险",
+          "recommendation": "接种后按压针眼5-10分钟，避免揉搓"
+        }
+      ],
+
+      "common_adverse_reactions": [
+        {
+          "reaction": "注射部位疼痛",
+          "frequency": "common",
+          "severity": "mild",
+          "onset": "接种后24小时内",
+          "duration": "1-3天"
+        },
+        {
+          "reaction": "发热",
+          "frequency": "occasional",
+          "severity": "mild_to_moderate",
+          "onset": "接种后6-24小时",
+          "duration": "1-2天"
+        },
+        {
+          "reaction": "疲乏",
+          "frequency": "occasional",
+          "severity": "mild",
+          "onset": "接种后24-48小时",
+          "duration": "1-2天"
+        }
+      ],
+
+      "special_populations": {
+        "pregnancy": {
+          "recommendation": "safe",
+          "notes": "妊娠期可安全接种"
+        },
+        "lactation": {
+          "recommendation": "safe",
+          "notes": "哺乳期可安全接种"
+        },
+        "immunocompromised": {
+          "recommendation": "recommended",
+          "notes": "免疫功能低下者更需接种，但需检测抗体滴度"
+        }
+      }
+    },
+    {
+      "id": "influenza",
+      "name": "流行性感冒疫苗",
+      "english_name": "Influenza Vaccine",
+      "aliases": ["流感疫苗", "Flu vaccine", "流感裂解疫苗"],
+      "type": "inactivated",
+      "manufacturers": ["赛诺菲", "葛兰素史克", "科兴生物", "华兰生物"],
+
+      "schedule": {
+        "is_series": false,
+        "frequency": "annual",
+        "timing": "September-November",
+        "timing_description": "每年流感季节前（9-11月）接种",
+        "doses": [
+          {
+            "dose_number": 1,
+            "timing": "annual",
+            "timing_description": "每年接种一次"
+          }
+        ],
+        "age_specific_dosing": {
+          "6月-8岁": {
+            "first_time_vaccinated": {
+              "doses": 2,
+              "interval": "4周",
+              "notes": "首次接种需2剂，间隔≥4周"
+            },
+            "previously_vaccinated": {
+              "doses": 1,
+              "notes": "既往接种过者仅需1剂"
+            }
+          },
+          "9岁+": {
+            "doses": 1,
+            "notes": "每次1剂"
+          }
+        }
+      },
+
+      "contraindications": [
+        {
+          "type": "allergy",
+          "allergen": "鸡蛋",
+          "severity": "severe",
+          "description": "对鸡蛋严重过敏者（既往接种流感疫苗后出现过敏反应）",
+          "notes": "轻微鸡蛋过敏不是禁忌症"
+        },
+        {
+          "type": "disease",
+          "condition": "发热性疾病",
+          "severity": "temporary",
+          "description": "发热期应暂缓接种",
+          "notes": "轻度上呼吸道感染不是禁忌症"
+        },
+        {
+          "type": "history",
+          "condition": "吉兰-巴雷综合征",
+          "severity": "precaution",
+          "description": "有GBS病史者接种需谨慎评估",
+          "notes": "如既往接种流感疫苗后6周内出现GBS，应避免接种"
+        }
+      ],
+
+      "age_recommendations": {
+        "recommended_age": "6月龄以上",
+        "min_age": "6个月",
+        "max_age": null,
+        "target_groups": [
+          "6月-5岁儿童",
+          "≥60岁老年人",
+          "孕妇",
+          "慢性病患者",
+          "医务人员",
+          "养老院人员"
+        ],
+        "notes": "推荐所有≥6月龄人群每年接种，除非有禁忌症"
+      },
+
+      "interactions": [],
+
+      "common_adverse_reactions": [
+        {
+          "reaction": "注射部位疼痛、红肿",
+          "frequency": "common",
+          "severity": "mild",
+          "onset": "接种后6-24小时",
+          "duration": "1-2天"
+        },
+        {
+          "reaction": "低热",
+          "frequency": "occasional",
+          "severity": "mild",
+          "onset": "接种后6-12小时",
+          "duration": "1-2天"
+        },
+        {
+          "reaction": "肌肉酸痛",
+          "frequency": "occasional",
+          "severity": "mild",
+          "onset": "接种后24小时内",
+          "duration": "1-2天"
+        }
+      ],
+
+      "special_populations": {
+        "pregnancy": {
+          "recommendation": "recommended",
+          "notes": "孕妇推荐接种，尤其是妊娠中晚期"
+        },
+        "lactation": {
+          "recommendation": "safe",
+          "notes": "哺乳期可安全接种"
+        },
+        "immunocompromised": {
+          "recommendation": "recommended",
+          "notes": "免疫功能低下者推荐接种，但禁用活疫苗"
+        }
+      }
+    },
+    {
+      "id": "hpv",
+      "name": "人乳头瘤病毒疫苗",
+      "english_name": "Human Papillomavirus Vaccine",
+      "aliases": ["HPV疫苗", "宫颈癌疫苗"],
+      "types": ["2价", "4价", "9价"],
+      "manufacturers": ["葛兰素史克（2价）", "默沙东（4价、9价）"],
+
+      "schedule": {
+        "is_series": true,
+        "series_type": "primary",
+        "standard_schedule": "0-2-6",
+        "doses_by_age": {
+          "15岁及以下": {
+            "total_doses": 2,
+            "intervals": ["0天", "6-12个月"],
+            "notes": "第2剂在第1剂后6-12个月接种"
+          },
+          "15岁以上": {
+            "total_doses": 3,
+            "intervals": ["0天", "2个月", "6个月"],
+            "notes": "第2剂与第1剂间隔≥2个月，第3剂与第1剂间隔≥6个月"
+          }
+        },
+        "grace_period": "2周",
+        "catch_up": {
+          "delayed_dose2": {
+            "notes": "第2剂如延后，仍可接种，无需重新开始程序"
+          },
+          "delayed_dose3": {
+            "notes": "第3剂可在第1剂后12个月内完成"
+          }
+        }
+      },
+
+      "contraindications": [
+        {
+          "type": "pregnancy",
+          "severity": "temporary",
+          "description": "妊娠期禁用",
+          "notes": "如接种期间发现妊娠，停止后续接种，产后继续"
+        },
+        {
+          "type": "allergy",
+          "allergen": "酵母",
+          "severity": "severe",
+          "description": "对酵母严重过敏者禁用"
+        },
+        {
+          "type": "allergy",
+          "allergen": "疫苗成分",
+          "severity": "severe",
+          "description": "对疫苗任何成分过敏者禁用"
+        }
+      ],
+
+      "age_recommendations": {
+        "best_age": "9-14岁",
+        "min_age": "9岁",
+        "max_age": {
+          "2价": "45岁",
+          "4价": "45岁",
+          "9价": "26岁"
+        },
+        "notes": "9-14岁是最佳接种年龄，免疫应答最好"
+      },
+
+      "interactions": [
+        {
+          "drug_category": "免疫抑制剂",
+          "interaction_type": "reduced_efficacy",
+          "severity": "moderate",
+          "description": "可能降低疫苗免疫效果",
+          "recommendation": "免疫功能低下者可接种，但效果可能降低"
+        }
+      ],
+
+      "common_adverse_reactions": [
+        {
+          "reaction": "注射部位疼痛",
+          "frequency": "common",
+          "severity": "mild_to_moderate",
+          "onset": "接种后24小时内",
+          "duration": "3-5天"
+        },
+        {
+          "reaction": "头痛",
+          "frequency": "occasional",
+          "severity": "mild",
+          "onset": "接种后24-48小时",
+          "duration": "1-2天"
+        },
+        {
+          "reaction": "发热",
+          "frequency": "occasional",
+          "severity": "mild",
+          "onset": "接种后6-24小时",
+          "duration": "1-2天"
+        },
+        {
+          "reaction": "疲乏",
+          "frequency": "occasional",
+          "severity": "mild",
+          "onset": "接种后24-48小时",
+          "duration": "1-3天"
+        }
+      ],
+
+      "special_populations": {
+        "pregnancy": {
+          "recommendation": "contraindicated",
+          "notes": "妊娠期禁用，哺乳期可用"
+        },
+        "lactation": {
+          "recommendation": "safe",
+          "notes": "哺乳期可安全接种"
+        },
+        "immunocompromised": {
+          "recommendation": "safe",
+          "notes": "免疫功能低下者可接种，但效果可能降低"
+        }
+      }
+    },
+    {
+      "id": "covid19",
+      "name": "新型冠状病毒疫苗",
+      "english_name": "COVID-19 Vaccine",
+      "aliases": ["COVID-19疫苗", "新冠疫苗", "冠状病毒疫苗"],
+      "types": ["灭活疫苗", "腺病毒载体疫苗", "mRNA疫苗", "重组蛋白疫苗"],
+      "manufacturers": ["国药", "科兴", "康希诺", "智飞生物"],
+
+      "schedule": {
+        "is_series": true,
+        "series_type": "primary",
+        "standard_schedule": "0-21",
+        "doses": [
+          {
+            "dose_number": 1,
+            "timing": "day0",
+            "timing_description": "第1剂"
+          },
+          {
+            "dose_number": 2,
+            "timing": "21_days_after_dose1",
+            "timing_description": "第1剂后21天",
+            "interval_after_previous_dose": {
+              "value": 3,
+              "unit": "weeks"
+            },
+            "min_interval": "3周",
+            "recommended_interval": "3-8周"
+          }
+        ],
+        "booster": {
+          "required": true,
+          "timing": "完成基础免疫后6个月",
+          "doses": 1,
+          "notes": "推荐在完成基础免疫后6个月接种加强针"
+        }
+      },
+
+      "contraindications": [
+        {
+          "type": "allergy",
+          "allergen": "疫苗成分",
+          "severity": "severe",
+          "description": "对疫苗任何成分严重过敏者禁用"
+        },
+        {
+          "type": "history",
+          "condition": "既往接种后严重过敏",
+          "severity": "severe",
+          "description": "既往接种同类疫苗后出现严重过敏反应者禁用"
+        },
+        {
+          "type": "disease",
+          "condition": "发热性疾病",
+          "severity": "temporary",
+          "description": "发热期应暂缓接种"
+        },
+        {
+          "type": "disease",
+          "condition": "急性疾病",
+          "severity": "temporary",
+          "description": "急性疾病期应暂缓接种"
+        }
+      ],
+
+      "age_recommendations": {
+        "recommended_age": "3岁以上",
+        "min_age": {
+          "灭活疫苗": "3岁",
+          "其他类型": "18岁"
+        },
+        "max_age": null,
+        "notes": "推荐所有适龄人群接种"
+      },
+
+      "interactions": [
+        {
+          "drug_category": "免疫抑制剂",
+          "interaction_type": "reduced_efficacy",
+          "severity": "moderate",
+          "description": "可能降低疫苗免疫效果",
+          "recommendation": "免疫功能低下者可接种，但效果可能降低，建议检测抗体"
+        }
+      ],
+
+      "common_adverse_reactions": [
+        {
+          "reaction": "注射部位疼痛",
+          "frequency": "common",
+          "severity": "mild_to_moderate",
+          "onset": "接种后24小时内",
+          "duration": "1-3天"
+        },
+        {
+          "reaction": "发热",
+          "frequency": "common",
+          "severity": "mild_to_moderate",
+          "onset": "接种后6-24小时",
+          "duration": "1-2天"
+        },
+        {
+          "reaction": "疲乏",
+          "frequency": "common",
+          "severity": "mild",
+          "onset": "接种后24-48小时",
+          "duration": "1-3天"
+        },
+        {
+          "reaction": "头痛",
+          "frequency": "occasional",
+          "severity": "mild",
+          "onset": "接种后24-48小时",
+          "duration": "1-2天"
+        },
+        {
+          "reaction": "肌肉酸痛",
+          "frequency": "occasional",
+          "severity": "mild",
+          "onset": "接种后24小时内",
+          "duration": "1-3天"
+        }
+      ],
+
+      "special_populations": {
+        "pregnancy": {
+          "recommendation": "caution",
+          "notes": "妊娠期慎用，建议咨询医生"
+        },
+        "lactation": {
+          "recommendation": "safe",
+          "notes": "哺乳期可安全接种"
+        },
+        "immunocompromised": {
+          "recommendation": "recommended",
+          "notes": "免疫功能低下者推荐接种，但可能需要加强针"
+        }
+      }
+    },
+    {
+      "id": "bcg",
+      "name": "卡介苗",
+      "english_name": "Bacille Calmette-Guérin Vaccine",
+      "aliases": ["卡介苗", "BCG"],
+      "type": "live_attenuated",
+      "manufacturers": ["上海生物", "北京生物"],
+
+      "schedule": {
+        "is_series": false,
+        "standard_schedule": "single",
+        "doses": [
+          {
+            "dose_number": 1,
+            "timing": "birth",
+            "timing_description": "出生时"
+          }
+        ],
+        "timing": "出生后24小时内",
+        "notes": "一般仅接种1次"
+      },
+
+      "contraindications": [
+        {
+          "type": "immune_status",
+          "condition": "免疫缺陷",
+          "severity": "severe",
+          "description": "原发性或继发性免疫缺陷者禁用"
+        },
+        {
+          "type": "disease",
+          "condition": "发热性疾病",
+          "severity": "temporary",
+          "description": "发热期应暂缓接种"
+        },
+        {
+          "type": "pregnancy",
+          "severity": "severe",
+          "description": "妊娠期禁用"
+        }
+      ],
+
+      "age_recommendations": {
+        "recommended_age": "出生时",
+        "min_age": "出生后24小时内",
+        "max_age": "3个月",
+        "catch_up": "超过3个月一般不接种",
+        "notes": "早产儿、低体重儿可暂缓，体重达标后接种"
+      },
+
+      "interactions": [
+        {
+          "drug_category": "免疫抑制剂",
+          "interaction_type": "contraindication",
+          "severity": "severe",
+          "description": "免疫抑制剂使用者禁用活疫苗"
+        }
+      ],
+
+      "common_adverse_reactions": [
+        {
+          "reaction": "注射部位红肿",
+          "frequency": "common",
+          "severity": "mild",
+          "onset": "接种后2-4周",
+          "duration": "数周",
+          "notes": "正常反应，会形成脓疱、溃疡"
+        },
+        {
+          "reaction": "局部淋巴结肿大",
+          "frequency": "occasional",
+          "severity": "mild_to_moderate",
+          "onset": "接种后数周",
+          "duration": "数周至数月"
+        }
+      ],
+
+      "special_populations": {
+        "pregnancy": {
+          "recommendation": "contraindicated",
+          "notes": "妊娠期禁用"
+        },
+        "lactation": {
+          "recommendation": "safe",
+          "notes": "哺乳期可用"
+        },
+        "immunocompromised": {
+          "recommendation": "contraindicated",
+          "notes": "免疫功能缺陷者禁用"
+        }
+      }
+    },
+    {
+      "id": "dpt",
+      "name": "百白破疫苗",
+      "english_name": "Diphtheria, Tetanus, Pertussis Vaccine",
+      "aliases": ["百白破疫苗", "DPT", "百白破联合疫苗"],
+      "type": "inactivated",
+      "manufacturers": ["武汉生物", "成都生物"],
+
+      "schedule": {
+        "is_series": true,
+        "series_type": "primary",
+        "standard_schedule": "2-3-4",
+        "doses": [
+          {
+            "dose_number": 1,
+            "timing": "3_months",
+            "timing_description": "3月龄",
+            "recommended_age": "3月龄"
+          },
+          {
+            "dose_number": 2,
+            "timing": "4_months",
+            "timing_description": "4月龄",
+            "interval_after_previous_dose": {
+              "value": 1,
+              "unit": "months"
+            }
+          },
+          {
+            "dose_number": 3,
+            "timing": "5_months",
+            "timing_description": "5月龄",
+            "interval_after_previous_dose": {
+              "value": 1,
+              "unit": "months"
+            }
+          },
+          {
+            "dose_number": 4,
+            "timing": "18_months",
+            "timing_description": "18月龄加强",
+            "interval_after_previous_dose": {
+              "value": 13,
+              "unit": "months"
+            }
+          }
+        ],
+        "booster": {
+          "required": true,
+          "doses": 1,
+          "timing": "6岁",
+          "notes": "6岁时接种白破疫苗（DT）加强"
+        }
+      },
+
+      "contraindications": [
+        {
+          "type": "cns_disorder",
+          "condition": "进行性神经系统疾病",
+          "severity": "severe",
+          "description": "未控制的癫痫、进行性神经系统疾病禁用"
+        },
+        {
+          "type": "allergy",
+          "allergen": "疫苗成分",
+          "severity": "severe",
+          "description": "对疫苗任何成分过敏者禁用"
+        },
+        {
+          "type": "history",
+          "condition": "既往接种后严重反应",
+          "severity": "severe",
+          "description": "既往接种后出现严重神经系统反应者禁用"
+        }
+      ],
+
+      "age_recommendations": {
+        "recommended_age": "3月龄",
+        "min_age": "3个月",
+        "max_age": "7岁",
+        "notes": "超过7岁使用Tdap或Td替代"
+      },
+
+      "interactions": [],
+
+      "common_adverse_reactions": [
+        {
+          "reaction": "注射部位红肿疼痛",
+          "frequency": "common",
+          "severity": "mild_to_moderate",
+          "onset": "接种后24小时内",
+          "duration": "1-3天"
+        },
+        {
+          "reaction": "发热",
+          "frequency": "occasional",
+          "severity": "mild_to_moderate",
+          "onset": "接种后6-24小时",
+          "duration": "1-2天"
+        },
+        {
+          "reaction": "烦躁哭闹",
+          "frequency": "occasional",
+          "severity": "mild",
+          "onset": "接种后数小时",
+          "duration": "1-2天"
+        }
+      ],
+
+      "special_populations": {
+        "pregnancy": {
+          "recommendation": "not_applicable",
+          "notes": "婴幼儿疫苗"
+        },
+        "lactation": {
+          "recommendation": "not_applicable",
+          "notes": "婴幼儿疫苗"
+        },
+        "immunocompromised": {
+          "recommendation": "safe",
+          "notes": "可安全接种"
+        }
+      }
+    },
+    {
+      "id": "mmr",
+      "name": "麻疹腮腺炎风疹联合疫苗",
+      "english_name": "Measles, Mumps, Rubella Vaccine",
+      "aliases": ["麻腮风疫苗", "MMR", "麻疹疫苗", "风疹疫苗"],
+      "type": "live_attenuated",
+      "manufacturers": ["上海生物", "北京生物", "默沙东"],
+
+      "schedule": {
+        "is_series": true,
+        "series_type": "primary",
+        "standard_schedule": "8-18",
+        "doses": [
+          {
+            "dose_number": 1,
+            "timing": "8_months",
+            "timing_description": "8月龄",
+            "recommended_age": "8月龄",
+            "notes": "部分国家12月龄起始，中国8月龄起始"
+          },
+          {
+            "dose_number": 2,
+            "timing": "18_months",
+            "timing_description": "18月龄",
+            "interval_after_previous_dose": {
+              "value": 10,
+              "unit": "months"
+            },
+            "min_interval": "4周"
+          }
+        ],
+        "catch_up": {
+          "notes": "未接种者无论年龄均可补种2剂，间隔≥4周"
+        }
+      },
+
+      "contraindications": [
+        {
+          "type": "pregnancy",
+          "severity": "severe",
+          "description": "妊娠期禁用，接种后需避孕至少1个月",
+          "notes": "接种后1-3个月内避免妊娠"
+        },
+        {
+          "type": "immune_status",
+          "condition": "免疫缺陷",
+          "severity": "severe",
+          "description": "原发性或继发性免疫缺陷者禁用"
+        },
+        {
+          "type": "allergy",
+          "allergen": "疫苗成分",
+          "severity": "severe",
+          "description": "对疫苗任何成分严重过敏者禁用",
+          "notes": "包括对明胶、新霉素过敏"
+        },
+        {
+          "type": "disease",
+          "condition": "发热性疾病",
+          "severity": "temporary",
+          "description": "发热期应暂缓接种"
+        }
+      ],
+
+      "age_recommendations": {
+        "recommended_age": "8月龄",
+        "min_age": "8个月",
+        "max_age": null,
+        "catch_up": "未免疫者应尽快补种",
+        "notes": "成人如未免疫，建议接种2剂"
+      },
+
+      "interactions": [
+        {
+          "drug_category": "免疫抑制剂",
+          "interaction_type": "contraindication",
+          "severity": "severe",
+          "description": "免疫抑制剂使用者禁用活疫苗",
+          "recommendation": "停用免疫抑制剂3-6个月后再接种"
+        },
+        {
+          "drug_category": "免疫球蛋白",
+          "interaction_type": "delay",
+          "severity": "moderate",
+          "description": "免疫球蛋白可干扰疫苗效果",
+          "recommendation": "使用免疫球蛋白后需等待3-11个月再接种"
+        }
+      ],
+
+      "common_adverse_reactions": [
+        {
+          "reaction": "发热",
+          "frequency": "common",
+          "severity": "mild_to_moderate",
+          "onset": "接种后6-12天",
+          "duration": "3-5天",
+          "notes": "7-12天是发热高峰期"
+        },
+        {
+          "reaction": "皮疹",
+          "frequency": "occasional",
+          "severity": "mild",
+          "onset": "接种后7-10天",
+          "duration": "2-5天"
+        },
+        {
+          "reaction": "腮腺肿大",
+          "frequency": "rare",
+          "severity": "mild_to_moderate",
+          "onset": "接种后10-14天",
+          "duration": "3-7天"
+        }
+      ],
+
+      "special_populations": {
+        "pregnancy": {
+          "recommendation": "contraindicated",
+          "notes": "妊娠期禁用，接种后避孕1个月"
+        },
+        "lactation": {
+          "recommendation": "safe",
+          "notes": "哺乳期可安全接种"
+        },
+        "immunocompromised": {
+          "recommendation": "contraindicated",
+          "notes": "免疫功能缺陷者禁用活疫苗"
+        }
+      }
+    },
+    {
+      "id": "pneumococcal",
+      "name": "肺炎球菌疫苗",
+      "english_name": "Pneumococcal Vaccine",
+      "aliases": ["肺炎疫苗", "肺炎球菌疫苗"],
+      "types": ["PCV13", "PPSV23"],
+      "type": "conjugate_polysaccharide",
+      "manufacturers": ["辉瑞", "默沙东", "成都生物"],
+
+      "schedule": {
+        "is_series": true,
+        "series_type": "primary",
+        "standard_schedule": "varies_by_age",
+        "doses": {
+          "婴幼儿": {
+            "vaccine_type": "PCV13",
+            "doses": 3,
+            "schedule": ["2月龄", "4月龄", "12月龄"],
+            "notes": "2、4、12月龄各1剂"
+          },
+          "65岁以上": {
+            "vaccine_type": "PPSV23",
+            "doses": 1,
+            "schedule": "65岁时",
+            "booster": "5年后可加强1剂"
+          },
+          "高危人群": {
+            "vaccine_type": "PCV13 + PPSV23",
+            "schedule": "PCV13首剂，1年后PPSV23",
+            "booster": "PPSV23 5年后可加强"
+          }
+        }
+      },
+
+      "contraindications": [
+        {
+          "type": "allergy",
+          "allergen": "疫苗成分",
+          "severity": "severe",
+          "description": "对疫苗任何成分严重过敏者禁用"
+        },
+        {
+          "type": "disease",
+          "condition": "发热性疾病",
+          "severity": "temporary",
+          "description": "发热期应暂缓接种"
+        }
+      ],
+
+      "age_recommendations": {
+        "recommended_age": {
+          "PCV13": "2月龄-15岁",
+          "PPSV23": "≥2岁高危人群，≥65岁常规"
+        },
+        "target_groups": [
+          "65岁以上老年人",
+          "慢性心肺疾病患者",
+          "糖尿病患者",
+          "免疫功能低下者",
+          "无脾者"
+        ]
+      },
+
+      "interactions": [],
+
+      "common_adverse_reactions": [
+        {
+          "reaction": "注射部位疼痛",
+          "frequency": "common",
+          "severity": "mild_to_moderate",
+          "onset": "接种后24小时内",
+          "duration": "1-3天"
+        },
+        {
+          "reaction": "发热",
+          "frequency": "occasional",
+          "severity": "mild",
+          "onset": "接种后24小时内",
+          "duration": "1-2天"
+        },
+        {
+          "reaction": "肌肉酸痛",
+          "frequency": "occasional",
+          "severity": "mild",
+          "onset": "接种后24-48小时",
+          "duration": "1-2天"
+        }
+      ],
+
+      "special_populations": {
+        "pregnancy": {
+          "recommendation": "safe",
+          "notes": "妊娠期可安全接种"
+        },
+        "lactation": {
+          "recommendation": "safe",
+          "notes": "哺乳期可安全接种"
+        },
+        "immunocompromised": {
+          "recommendation": "recommended",
+          "notes": "免疫功能低下者强烈推荐接种"
+        }
+      }
+    }
+  ],
+
+  "categories": {
+    "routine_childhood": ["hepb", "bcg", "polio", "dpt", "mmr", "varicella", "pneumococcal"],
+    "routine_adult": ["influenza", "tdap", "pneumococcal", "shingles", "covid19"],
+    "travel": ["hepa", "typhoid", "yellow_fever", "japanese_encephalitis"],
+    "high_risk": ["pneumococcal", "meningococcal", "hib"]
+  }
+}
