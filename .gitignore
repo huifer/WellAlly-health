@@ -5,3 +5,5 @@ data/
 *.tmp
 *.log
 医疗报告/
+emergency-cards/*
+.claude/settings.local.json
