@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(cat:*)",
+      "Bash(if [ ! -d \"data/reminders/logs\" ])",
+      "Bash(then mkdir -p \"data/reminders/logs\")",
+      "Bash(fi:*)"
     ]
   }
 }
