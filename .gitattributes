@@ -1,0 +1,45 @@
+# Auto detect text files and perform LF normalization
+* text=auto eol=lf
+
+# Explicitly declare text files
+*.css text
+*.html text
+*.js text
+*.json text
+*.md text
+*.ts text
+*.tsx text
+*.xml text
+*.yml text
+*.yaml text
+
+# Ensure these files are treated as text
+.claude/** text
+!*.png text
+!*.jpg text
+!*.jpeg text
+!*.gif text
+
+# Declare files that will always have CRLF line endings on checkout
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Denote all files that are truly binary and should not be modified
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+
+# Diff settings for specific files
+*.json diff=json
+*.md diff=markdown
+
+# Merge drivers
+*.json merge=union
