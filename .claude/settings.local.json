@@ -5,7 +5,10 @@
       "Bash(robocopy:*)",
       "Bash(powershell:*)",
       "Bash(dir:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)"
     ]
   }
 }

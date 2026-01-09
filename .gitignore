@@ -27,3 +27,4 @@ history-chart/**/*.json
 !history-chart/.gitkeep
 !history-chart/generated-reports/.gitkeep
 !history-chart/charts/.gitkeep
+nul
