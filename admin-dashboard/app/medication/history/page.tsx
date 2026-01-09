@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadMedicationPlan } from '@/lib/data/loader';
 import { MedicationPlan } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, Tag, Timeline } from 'antd';
@@ -13,11 +12,17 @@ export default function MedicationHistoryPage() {
   const [medicationPlan, setMedicationPlan] = useState<MedicationPlan | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadData = () => {
-      const data = loadMedicationPlan();
-      setMedicationPlan(data);
-      setLoading(false);
+useEffect(() => {
+    const loadData = async () => {
+      try {
+        const response = await fetch('/api/data/medication-plan');
+        const data = await response.json();
+        setMedicationPlan(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error loading data:', error);
+        setLoading(false);
+      }
     };
     loadData();
   }, []);
@@ -46,7 +51,7 @@ export default function MedicationHistoryPage() {
     );
   }
 
-  const columns: ColumnsType<typeof medicationPlan.medication_history>[number]> = [
+  const columns: ColumnsType<any> = [
     {
       title: '药物名称',
       dataIndex: 'name',

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadLabTests } from '@/lib/data/loader';
 import { LabTest } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, Tag, Badge, Timeline } from 'antd';
@@ -15,10 +14,16 @@ export default function LabTestsHistoryPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadData = () => {
-      const tests = loadLabTests();
-      setLabTests(tests);
-      setLoading(false);
+    const loadData = async () => {
+      try {
+        const response = await fetch('/api/data/lab-tests');
+        const data = await response.json();
+        setLabTests(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error loading data:', error);
+        setLoading(false);
+      }
     };
     loadData();
   }, []);

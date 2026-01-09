@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadMedicationPlan, loadReminders } from '@/lib/data/loader';
 import { MedicationPlan, ReminderData } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, Tag, Badge, Switch, Timeline, Alert } from 'antd';
@@ -16,12 +15,21 @@ export default function MedicationRemindersPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadData = () => {
-      const plan = loadMedicationPlan();
-      const reminderData = loadReminders();
-      setMedicationPlan(plan);
-      setReminders(reminderData);
-      setLoading(false);
+    const loadData = async () => {
+      try {
+        const responses = await Promise.all([
+          fetch('/api/data/medication-plan'),
+          fetch('/api/data/reminders'),
+        ]);
+        const data0 = await responses[0].json();
+        const data1 = await responses[1].json();
+        setMedicationPlan(data0);
+        setReminders(data1);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error loading data:', error);
+        setLoading(false);
+      }
     };
     loadData();
   }, []);

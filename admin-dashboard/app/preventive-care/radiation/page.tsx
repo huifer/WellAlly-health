@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadRadiationRecords } from '@/lib/data/loader';
 import { RadiationData } from '@/lib/types';
 import { RadiationTimelineChart } from '@/components/preventive/RadiationTimelineChart';
 import { RadiationStatsCards } from '@/components/preventive/RadiationStatsCards';
@@ -16,11 +15,17 @@ export default function PreventiveCareRadiationPage() {
   const [radiationData, setRadiationData] = useState<RadiationData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadData = () => {
-      const data = loadRadiationRecords();
-      setRadiationData(data);
-      setLoading(false);
+useEffect(() => {
+    const loadData = async () => {
+      try {
+        const response = await fetch('/api/data/radiation');
+        const data = await response.json();
+        setRadiationData(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error loading data:', error);
+        setLoading(false);
+      }
     };
     loadData();
   }, []);

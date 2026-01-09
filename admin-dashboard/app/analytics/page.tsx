@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadProfileData, loadLabTests, loadMedicationPlan, loadRadiationRecords } from '@/lib/data/loader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge, Alert } from 'antd';
 import { BarChart3, TrendingUp, Activity, Calendar, Heart, Pill, AlertCircle } from 'lucide-react';
@@ -11,10 +10,16 @@ export default function AnalyticsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadData = () => {
-      const profileData = loadProfileData();
-      setProfile(profileData);
-      setLoading(false);
+    const loadData = async () => {
+      try {
+        const response = await fetch('/api/data/profile');
+        const profileData = await response.json();
+        setProfile(profileData);
+      } catch (error) {
+        console.error('Error loading data:', error);
+      } finally {
+        setLoading(false);
+      }
     };
     loadData();
   }, []);

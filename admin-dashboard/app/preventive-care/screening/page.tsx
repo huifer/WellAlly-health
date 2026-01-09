@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadScreeningData } from '@/lib/data/loader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, Tag, Badge, Timeline } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
@@ -41,11 +40,17 @@ export default function PreventiveCareScreeningPage() {
   const [screeningData, setScreeningData] = useState<ScreeningData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadData = () => {
-      const data = loadScreeningData();
-      setScreeningData(data);
-      setLoading(false);
+useEffect(() => {
+    const loadData = async () => {
+      try {
+        const response = await fetch('/api/data/screening');
+        const data = await response.json();
+        setScreeningData(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error loading data:', error);
+        setLoading(false);
+      }
     };
     loadData();
   }, []);

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadRadiationRecords } from '@/lib/data/loader';
 import { RadiationData } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, Tag, Badge } from 'antd';
@@ -15,10 +14,16 @@ export default function ImagingTestsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadData = () => {
-      const data = loadRadiationRecords();
-      setRadiationData(data);
-      setLoading(false);
+    const loadData = async () => {
+      try {
+        const response = await fetch('/api/data/radiation');
+        const data = await response.json();
+        setRadiationData(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error loading data:', error);
+        setLoading(false);
+      }
     };
     loadData();
   }, []);

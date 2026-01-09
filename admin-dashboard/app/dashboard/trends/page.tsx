@@ -1,14 +1,13 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { loadProfileData, loadLabTests, loadVitalSignsLogs } from '@/lib/data/loader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TrendChart } from '@/components/analytics/TrendChart';
 import { MultiMetricChart } from '@/components/analytics/MultiMetricChart';
 import { AnalyticsFilters } from '@/components/analytics/AnalyticsFilters';
 import { MetricSelector } from '@/components/analytics/MetricSelector';
 import { weightHistoryToTimeSeries, aggregateByPeriod, getPresetRange } from '@/lib/analytics/transformers';
-import { TrendingUp, Activity, Calendar, TrendingDown, Heart, Droplets, WeightScale } from 'lucide-react';
+import { TrendingUp, Activity, Calendar, TrendingDown, Heart, Droplets, Scale } from 'lucide-react';
 import { Statistic, Row, Col } from 'antd';
 
 export default function DashboardTrendsPage() {
@@ -17,18 +16,27 @@ export default function DashboardTrendsPage() {
   const [vitalSigns, setVitalSigns] = useState<any>(null);
 
   // State
-  const [dateRange, setDateRange] = useState({ type: 'preset', preset: '1Y' });
+  const [dateRange, setDateRange] = useState<{ type: 'preset' | 'custom'; preset?: string; start?: string; end?: string }>({ type: 'preset', preset: '1Y' });
   const [aggregation, setAggregation] = useState('monthly');
   const [selectedMetrics, setSelectedMetrics] = useState(['weight', 'bmi']);
 
   useEffect(() => {
     const loadData = async () => {
-      const profileData = await loadProfileData();
-      const labData = loadLabTests();
-      const vitalData = loadVitalSignsLogs();
-      setProfile(profileData);
-      setLabTests(labData);
-      setVitalSigns(vitalData);
+      try {
+        const [profileRes, labRes, vitalRes] = await Promise.all([
+          fetch('/api/data/profile'),
+          fetch('/api/data/lab-tests'),
+          fetch('/api/data/vital-signs')
+        ]);
+        const profileData = await profileRes.json();
+        const labData = await labRes.json();
+        const vitalData = await vitalRes.json();
+        setProfile(profileData);
+        setLabTests(labData);
+        setVitalSigns(vitalData);
+      } catch (error) {
+        console.error('Error loading data:', error);
+      }
     };
     loadData();
   }, []);
@@ -112,7 +120,7 @@ export default function DashboardTrendsPage() {
 
   // Prepare blood pressure chart data
   const bpChartData = useMemo(() => {
-    return bpData.map(point => ({
+    return bpData.map((point: any) => ({
       date: new Date(point.date).toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' }),
       systolic: point.value,
       diastolic: point.metadata?.diastolic
@@ -158,7 +166,7 @@ export default function DashboardTrendsPage() {
                 title="当前体重"
                 value={profile.calculated?.weight || profile.basic_info?.weight}
                 suffix="kg"
-                prefix={<WeightScale className="w-4 h-4 text-green-500" />}
+                prefix={<Scale className="w-4 h-4 text-green-500" />}
                 valueStyle={{ color: weightTrend?.direction === 'down' ? '#52c41a' : '#1890ff' }}
               />
               {weightTrend && (
@@ -235,7 +243,7 @@ export default function DashboardTrendsPage() {
         </CardHeader>
         <CardContent>
           <MetricSelector
-            metrics={metricOptions}
+            options={metricOptions}
             selected={selectedMetrics}
             onChange={setSelectedMetrics}
           />
@@ -251,6 +259,7 @@ export default function DashboardTrendsPage() {
           <CardContent>
             <MultiMetricChart
               data={multiMetricData}
+              title="体重与BMI趋势"
               metrics={[
                 { key: 'weight', name: '体重', color: '#84CC16', unit: 'kg' },
                 { key: 'bmi', name: 'BMI', color: '#10b981', unit: '' }
@@ -270,15 +279,12 @@ export default function DashboardTrendsPage() {
           <CardContent>
             <MultiMetricChart
               data={bpChartData}
+              title="血压趋势"
               metrics={[
                 { key: 'systolic', name: '收缩压', color: '#ef4444', unit: 'mmHg' },
                 { key: 'diastolic', name: '舒张压', color: '#f97316', unit: 'mmHg' }
               ]}
               height={300}
-              showReferenceLine={[
-                { key: 'systolic', value: 140, label: '收缩压参考线' },
-                { key: 'diastolic', value: 90, label: '舒张压参考线' }
-              ]}
             />
           </CardContent>
         </Card>

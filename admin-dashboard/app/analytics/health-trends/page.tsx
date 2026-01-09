@@ -13,7 +13,7 @@ export default function AnalyticsHealthTrendsPage() {
   const [profile, setProfile] = useState<any>(null);
 
   // State
-  const [dateRange, setDateRange] = useState({ type: 'preset', preset: '1Y' });
+  const [dateRange, setDateRange] = useState<{ type: 'preset' | 'custom'; preset?: string; start?: string; end?: string }>({ type: 'preset', preset: '1Y' });
   const [aggregation, setAggregation] = useState('monthly');
   const [selectedMetrics, setSelectedMetrics] = useState(['weight', 'bmi']);
 
@@ -30,7 +30,7 @@ export default function AnalyticsHealthTrendsPage() {
 
   // Process data
   const timeSeriesData = useMemo(() => {
-    if (!profile) return [];
+    if (!profile || !profile.history) return [];
     const data = weightHistoryToTimeSeries(profile.history);
     const range = getPresetRange(dateRange.preset || 'ALL');
     const filtered = data.filter(point => {
@@ -39,7 +39,7 @@ export default function AnalyticsHealthTrendsPage() {
              timestamp <= new Date(range.end).getTime();
     });
     return aggregateByPeriod(filtered, aggregation as any);
-  }, [profile.history, dateRange, aggregation]);
+  }, [profile, dateRange, aggregation]);
 
   // Calculate trends
   const weightTrend = useMemo(() => {
@@ -57,12 +57,13 @@ export default function AnalyticsHealthTrendsPage() {
 
   // Prepare multi-metric chart data
   const multiMetricData = useMemo(() => {
+    if (!profile?.calculated?.bmi) return [];
     return timeSeriesData.map(point => ({
       date: point.date,
       weight: point.value,
       bmi: point.metadata?.bmi || profile.calculated.bmi
     }));
-  }, [timeSeriesData, profile.calculated.bmi]);
+  }, [timeSeriesData, profile]);
 
   if (!profile) {
     return (
@@ -176,7 +177,12 @@ export default function AnalyticsHealthTrendsPage() {
               <MultiMetricChart
                 data={multiMetricData}
                 title="健康指标对比"
-                metrics={metricOptions.filter(m => selectedMetrics.includes(m.id))}
+                metrics={metricOptions.filter(m => selectedMetrics.includes(m.id)).map(m => ({
+                  key: m.id,
+                  name: m.name,
+                  color: m.color,
+                  unit: m.id === 'weight' ? 'kg' : m.id === 'bmi' ? '' : m.id === 'body_surface_area' ? 'm²' : ''
+                }))}
               />
             ) : (
               <>

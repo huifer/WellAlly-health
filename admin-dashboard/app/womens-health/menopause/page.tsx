@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadMenopauseTracker } from '@/lib/data/loader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { format } from 'date-fns';
 import { zhCN } from 'date-fns/locale';
@@ -34,10 +33,16 @@ export default function WomensHealthMenopausePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadData = () => {
-      const data = loadMenopauseTracker();
-      setMonthlyRecords(data || []);
-      setLoading(false);
+    const loadData = async () => {
+      try {
+        const response = await fetch('/api/data/menopause');
+        const data = await response.json();
+        setMonthlyRecords(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error loading data:', error);
+        setLoading(false);
+      }
     };
     loadData();
   }, []);

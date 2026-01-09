@@ -342,7 +342,7 @@ export function getCyclePhaseForDate(cycles: Cycle[], date: Date): {
     }
   }
 
-  return { phase: 'follicual', cycleDay: 0, cycle: null };
+  return { phase: 'follicular', cycleDay: 0, cycle: null };
 }
 
 /**

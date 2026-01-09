@@ -10,7 +10,7 @@ import { FlaskConical, AlertTriangle, CheckCircle } from 'lucide-react';
 export default function AnalyticsLabTrendsPage() {
   const [labTests, setLabTests] = useState<any>([]);
 
-  const [dateRange, setDateRange] = useState({ type: 'preset', preset: 'ALL' });
+  const [dateRange, setDateRange] = useState<{ type: 'preset' | 'custom'; preset?: string; start?: string; end?: string }>({ type: 'preset', preset: 'ALL' });
   const [selectedTest, setSelectedTest] = useState('空腹血糖');
 
   useEffect(() => {
@@ -21,8 +21,8 @@ export default function AnalyticsLabTrendsPage() {
   const allTestNames = useMemo(() => {
     if (!labTests || labTests.length === 0) return [];
     const names = new Set<string>();
-    labTests.forEach(test => {
-      test.items.forEach(item => names.add(item.name));
+    labTests.forEach((test: any) => {
+      test.items.forEach((item: any) => names.add(item.name));
     });
     return Array.from(names).sort();
   }, [labTests]);
@@ -84,7 +84,7 @@ export default function AnalyticsLabTrendsPage() {
           <p>加载中...</p>
         </div>
       ) : (
-
+        <>
       {/* Test Selector */}
       <div className="bg-white rounded-lg border p-4">
         <label className="text-sm font-medium text-gray-700 mb-2 block">
@@ -277,6 +277,7 @@ export default function AnalyticsLabTrendsPage() {
           </div>
         </div>
       </div>
+        </>
       )}
     </div>
   );

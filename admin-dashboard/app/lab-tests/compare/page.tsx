@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadLabTests } from '@/lib/data/loader';
 import { LabTest } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, Button, Space } from 'antd';
@@ -15,13 +14,16 @@ export default function LabTestsComparePage() {
   const [selectedTests, setSelectedTests] = useState<LabTest[]>([]);
 
   useEffect(() => {
-    const loadData = () => {
-      const tests = loadLabTests();
-      setLabTests(tests);
-      if (tests.length > 0) {
-        setSelectedTestType(tests[0].type);
+    const loadData = async () => {
+      try {
+        const response = await fetch('/api/data/lab-tests');
+        const data = await response.json();
+        setLabTests(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error loading data:', error);
+        setLoading(false);
       }
-      setLoading(false);
     };
     loadData();
   }, []);
@@ -81,6 +83,7 @@ export default function LabTestsComparePage() {
         const item = test.items.find(i => i.name === indicatorName);
         return {
           date: test.date,
+          timestamp: new Date(test.date).getTime(),
           value: item?.value || 0,
           unit: item?.unit || '',
           min_ref: item?.min_ref || 0,

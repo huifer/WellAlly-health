@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadHealthReport, loadProfileData, loadLabTests } from '@/lib/data/loader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from 'antd';
 import { FileText, Calendar, TrendingUp, CheckCircle } from 'lucide-react';
@@ -15,12 +14,21 @@ export default function DashboardAnnualPage() {
   const [selectedYear, setSelectedYear] = useState(2025);
 
   useEffect(() => {
-    const loadData = () => {
-      const profileData = loadProfileData();
-      const reportData = loadHealthReport(selectedYear);
-      setProfile(profileData);
-      setReport(reportData);
-      setLoading(false);
+    const loadData = async () => {
+      try {
+        const [profileRes, reportRes] = await Promise.all([
+          fetch('/api/data/profile'),
+          fetch(`/api/data/health-report?year=${selectedYear}`)
+        ]);
+        const profileData = await profileRes.json();
+        const reportData = await reportRes.json();
+        setProfile(profileData);
+        setReport(reportData);
+      } catch (error) {
+        console.error('Error loading data:', error);
+      } finally {
+        setLoading(false);
+      }
     };
     loadData();
   }, [selectedYear]);

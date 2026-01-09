@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadMedicationPlan, loadMedicationLogs } from '@/lib/data/loader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Pill, Clock, Calendar, CheckCircle, AlertCircle } from 'lucide-react';
 import { Progress, Tag, Badge } from 'antd';
@@ -14,12 +13,21 @@ export default function MedicationsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadData = () => {
-      const plan = loadMedicationPlan();
-      const logs = loadMedicationLogs();
-      setMedicationPlan(plan);
-      setMedicationLogs(logs);
-      setLoading(false);
+    const loadData = async () => {
+      try {
+        const [planRes, logsRes] = await Promise.all([
+          fetch('/api/data/medication-plan'),
+          fetch('/api/data/medication-logs')
+        ]);
+        const plan = await planRes.json();
+        const logs = await logsRes.json();
+        setMedicationPlan(plan);
+        setMedicationLogs(logs);
+      } catch (error) {
+        console.error('Error loading medication data:', error);
+      } finally {
+        setLoading(false);
+      }
     };
     loadData();
   }, []);

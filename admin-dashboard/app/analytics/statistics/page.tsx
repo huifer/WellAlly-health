@@ -39,15 +39,15 @@ export default function AnalyticsStatisticsPage() {
   // Test type distribution
   const testTypeDistribution = useMemo(() => {
     if (!labTests || labTests.length === 0) return [];
-    const distribution = labTests.reduce((acc, test) => {
+    const distribution = labTests.reduce((acc: Record<string, number>, test: any) => {
       acc[test.type] = (acc[test.type] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
     return Object.entries(distribution).map(([name, value]) => ({
       name,
-      value,
-      percentage: ((value / labTests.length) * 100).toFixed(1)
+      value: value as number,
+      percentage: (((value as number) / labTests.length) * 100).toFixed(1)
     }));
   }, [labTests]);
 
@@ -58,8 +58,8 @@ export default function AnalyticsStatisticsPage() {
     let abnormalItems = 0;
     const categories: Record<string, { total: number; abnormal: number }> = {};
 
-    labTests.forEach(test => {
-      test.items.forEach(item => {
+    labTests.forEach((test: any) => {
+      test.items.forEach((item: any) => {
         totalItems++;
         if (item.is_abnormal) abnormalItems++;
 
@@ -95,7 +95,7 @@ export default function AnalyticsStatisticsPage() {
     if (!labTests || labTests.length === 0) return [];
     const frequency: Record<string, number> = {};
 
-    labTests.forEach(test => {
+    labTests.forEach((test: any) => {
       const month = test.date.substring(0, 7); // YYYY-MM
       frequency[month] = (frequency[month] || 0) + 1;
     });
@@ -126,7 +126,7 @@ export default function AnalyticsStatisticsPage() {
 
   // Health score
   const healthScore = useMemo(() => {
-    if (!abnormalityStats || !profile) return '0';
+    if (!abnormalityStats || !profile?.calculated?.bmi) return '0';
     // Calculate based on various factors
     let score = 100;
 
@@ -141,7 +141,7 @@ export default function AnalyticsStatisticsPage() {
     if (profile.calculated.bmi >= 18.5 && profile.calculated.bmi < 25) score += 5;
 
     return Math.max(0, Math.min(100, score)).toFixed(0);
-  }, [abnormalityStats, screeningCompliance, profile.calculated.bmi]);
+  }, [abnormalityStats, screeningCompliance, profile]);
 
   const COLORS = ['#84CC16', '#10b981', '#34d399', '#6ee7b7', '#a7f3d0'];
 
@@ -236,7 +236,7 @@ export default function AnalyticsStatisticsPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">正常率</p>
-                <p className="text-2xl font-bold text-green-600">{abnormalityStats.normalRate}%</p>
+                <p className="text-2xl font-bold text-green-600">{abnormalityStats?.normalRate ?? 0}%</p>
               </div>
               <Shield className="w-10 h-10 text-green-600" />
             </div>
@@ -277,7 +277,7 @@ export default function AnalyticsStatisticsPage() {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ name, percentage }) => `${name} (${percentage}%)`}
+                  label={({ name, percentage }: any) => `${name} (${percentage}%)`}
                   outerRadius={80}
                   fill="#8884d8"
                   dataKey="value"
@@ -311,6 +311,7 @@ export default function AnalyticsStatisticsPage() {
         </Card>
 
         {/* Abnormality by Category */}
+        {abnormalityStats && (
         <Card>
           <CardHeader>
             <CardTitle>异常指标分类</CardTitle>
@@ -329,6 +330,7 @@ export default function AnalyticsStatisticsPage() {
             </ResponsiveContainer>
           </CardContent>
         </Card>
+        )}
 
         {/* Screening Timeline */}
         <Card>
@@ -354,6 +356,7 @@ export default function AnalyticsStatisticsPage() {
       </div>
 
       {/* Detailed Statistics Table */}
+      {abnormalityStats && (
       <Card>
         <CardHeader>
           <CardTitle>详细统计</CardTitle>
@@ -407,6 +410,7 @@ export default function AnalyticsStatisticsPage() {
           </div>
         </CardContent>
       </Card>
+      )}
     </div>
   );
 }

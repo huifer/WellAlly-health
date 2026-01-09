@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadScreeningData, loadVaccinationData } from '@/lib/data/loader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge, Progress, Timeline, Alert } from 'antd';
 import { format, differenceInDays, isPast, isFuture } from 'date-fns';
@@ -48,12 +47,21 @@ export default function PreventiveCarePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadData = () => {
-      const screening = loadScreeningData();
-      const vaccination = loadVaccinationData();
-      setScreeningData(screening);
-      setVaccinationData(vaccination);
-      setLoading(false);
+    const loadData = async () => {
+      try {
+        const [screeningRes, vaccinationRes] = await Promise.all([
+          fetch('/api/data/screening'),
+          fetch('/api/data/vaccines')
+        ]);
+        const screening = await screeningRes.json();
+        const vaccination = await vaccinationRes.json();
+        setScreeningData(screening);
+        setVaccinationData(vaccination);
+      } catch (error) {
+        console.error('Error loading data:', error);
+      } finally {
+        setLoading(false);
+      }
     };
     loadData();
   }, []);

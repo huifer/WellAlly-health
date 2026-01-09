@@ -1,15 +1,23 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadMedicationPlan } from '@/lib/data/loader';
 import { Card, CardContent } from '@/components/ui/card';
 import { Alert } from 'antd';
 
 export default function MedicationInteractionsPage() {
-  const [medicationPlan] = useState<any>(null);
+  const [medicationPlan, setMedicationPlan] = useState<any>(null);
 
   useEffect(() => {
-    setMedicationPlan(loadMedicationPlan());
+    const loadData = async () => {
+      try {
+        const response = await fetch('/api/data/medication-plan');
+        const data = await response.json();
+        setMedicationPlan(data);
+      } catch (error) {
+        console.error('Error loading medication data:', error);
+      }
+    };
+    loadData();
   }, []);
 
   return (

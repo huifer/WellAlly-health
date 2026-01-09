@@ -1,10 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadProfileData, loadScreeningData } from '@/lib/data/loader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge, Timeline, Alert } from 'antd';
-import { format, differenceInYears } from 'date-fns';
+import { format, differenceInYears, differenceInDays } from 'date-fns';
 import { zhCN } from 'date-fns/locale';
 import { ClipboardList, Calendar, CheckCircle, Info } from 'lucide-react';
 
@@ -14,12 +13,21 @@ export default function PreventiveCarePlanPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadData = () => {
-      const profileData = loadProfileData();
-      const screening = loadScreeningData();
-      setProfile(profileData);
-      setScreeningData(screening);
-      setLoading(false);
+    const loadData = async () => {
+      try {
+        const responses = await Promise.all([
+          fetch('/api/data/profile'),
+          fetch('/api/data/screening'),
+        ]);
+        const data0 = await responses[0].json();
+        const data1 = await responses[1].json();
+        setProfile(data0);
+        setScreeningData(data1);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error loading data:', error);
+        setLoading(false);
+      }
     };
     loadData();
   }, []);
@@ -135,12 +143,12 @@ export default function PreventiveCarePlanPage() {
     if (status === 'completed' && lastDone) {
       const daysSince = differenceInDays(new Date(), new Date(lastDone));
       if (daysSince > 365 * 2) {
-        return { color: 'orange' as const, label: '即将到期' };
+        return { color: 'warning' as const, label: '即将到期' };
       }
-      return { color: 'green' as const, label: '已完成' };
+      return { color: 'success' as const, label: '已完成' };
     }
     if (status === 'due') {
-      return { color: 'blue' as const, label: '待安排' };
+      return { color: 'processing' as const, label: '待安排' };
     }
     return { color: 'default' as const, label: '建议' };
   };
@@ -185,7 +193,7 @@ export default function PreventiveCarePlanPage() {
             .map((rec) => {
               const statusInfo = getStatusInfo(rec.status, rec.lastDone, rec.nextDue);
               return (
-                <Card key={rec.category} className="border-l-4" style={{ borderLeftColor: statusInfo.color === 'green' ? '#22c55e' : statusInfo.color === 'orange' ? '#f97316' : statusInfo.color === 'blue' ? '#3b82f6' : '#d1d5db' }}>
+                <Card key={rec.category} className="border-l-4" style={{ borderLeftColor: statusInfo.color === 'success' ? '#22c55e' : statusInfo.color === 'warning' ? '#f97316' : statusInfo.color === 'processing' ? '#3b82f6' : '#d1d5db' }}>
                   <CardContent className="p-4">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-2">

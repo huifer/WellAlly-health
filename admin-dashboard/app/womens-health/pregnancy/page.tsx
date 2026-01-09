@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { loadPregnancyTracker } from '@/lib/data/loader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, Tag, Timeline } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
@@ -55,11 +54,17 @@ export default function WomensHealthPregnancyPage() {
   const [pregnancyData, setPregnancyData] = useState<PregnancyTrackerData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadData = () => {
-      const data = loadPregnancyTracker();
-      setPregnancyData(data);
-      setLoading(false);
+useEffect(() => {
+    const loadData = async () => {
+      try {
+        const response = await fetch('/api/data/pregnancy');
+        const data = await response.json();
+        setPregnancyData(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error loading data:', error);
+        setLoading(false);
+      }
     };
     loadData();
   }, []);

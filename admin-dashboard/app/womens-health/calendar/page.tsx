@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { loadCycleTrackerData } from '@/lib/data/loader';
 import { CycleTrackerData, CycleDailyLog } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getCyclePhaseForDate, getPhaseColor, getPhaseLabel } from '@/lib/analytics/transformers';
@@ -15,11 +14,17 @@ export default function WomensHealthCalendarPage() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadData = () => {
-      const data = loadCycleTrackerData();
-      setCycleData(data);
-      setLoading(false);
+useEffect(() => {
+    const loadData = async () => {
+      try {
+        const response = await fetch('/api/data/cycle');
+        const data = await response.json();
+        setCycleData(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error loading data:', error);
+        setLoading(false);
+      }
     };
     loadData();
   }, []);

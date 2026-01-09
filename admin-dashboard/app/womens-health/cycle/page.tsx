@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { loadCycleTrackerData } from '@/lib/data/loader';
 import { CycleTrackerData, Cycle } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TrendChart } from '@/components/analytics/TrendChart';
@@ -17,11 +16,17 @@ export default function WomensHealthCyclePage() {
   const [cycleData, setCycleData] = useState<CycleTrackerData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadData = () => {
-      const data = loadCycleTrackerData();
-      setCycleData(data);
-      setLoading(false);
+useEffect(() => {
+    const loadData = async () => {
+      try {
+        const response = await fetch('/api/data/cycle');
+        const data = await response.json();
+        setCycleData(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error loading data:', error);
+        setLoading(false);
+      }
     };
     loadData();
   }, []);

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { loadCycleTrackerData, loadMenopauseTracker, loadPregnancyTracker } from '@/lib/data/loader';
 import { CycleTrackerData } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar, TrendingUp, Activity, Baby, Clock } from 'lucide-react';
@@ -14,10 +13,16 @@ export default function WomensHealthPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadData = () => {
-      const cycle = loadCycleTrackerData();
-      setCycleData(cycle);
-      setLoading(false);
+    const loadData = async () => {
+      try {
+        const response = await fetch('/api/data/cycle');
+        const cycle = await response.json();
+        setCycleData(cycle);
+      } catch (error) {
+        console.error('Error loading data:', error);
+      } finally {
+        setLoading(false);
+      }
     };
     loadData();
   }, []);

@@ -98,7 +98,7 @@ export function TrendChart({
                 borderRadius: '0.5rem',
                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
               }}
-              formatter={(value: number) => [`${value.toFixed(2)} ${unit}`, '数值']}
+              formatter={(value: number | undefined) => [`${(value || 0).toFixed(2)} ${unit}`, '数值']}
               labelFormatter={(label) => `日期: ${label}`}
             />
             <Legend />
