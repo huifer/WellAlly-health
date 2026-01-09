@@ -12,7 +12,7 @@ import {
   Pill,
   BarChart3,
   Settings,
-  ChevronRight,
+  ChevronDown,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -116,67 +116,82 @@ const menuItems: MenuItem[] = [
 function SidebarMenuItem({ item, pathname }: { item: MenuItem; pathname: string }) {
   const Icon = item.icon;
 
-  // 检查是否在父菜单的精确路径上
-  const isParentActive = pathname === item.path || (item.path === '/' && pathname === '/');
-
   // 检查是否有子菜单项处于激活状态
-  const hasActiveChild = item.subItems?.some(subItem => pathname.startsWith(subItem.path));
+  const hasActiveChild = item.subItems?.some(subItem => {
+    if (subItem.path === '/' && pathname === '/') return true;
+    if (subItem.path !== '/' && pathname === subItem.path) return true;
+    if (subItem.path !== '/' && pathname.startsWith(subItem.path + '/')) return true;
+    return false;
+  });
 
-  // 确定菜单部分是否应该展开
-  const shouldExpand = isParentActive || hasActiveChild;
-
+  // 确定菜单部分是否应该展开 - 默认展开有激活子项的菜单
+  const shouldExpand = hasActiveChild;
   const [isExpanded, setIsExpanded] = useState(shouldExpand);
 
   // 在 pathname 变化时更新展开状态
   useEffect(() => {
-    setIsExpanded(shouldExpand);
-  }, [pathname, shouldExpand]);
+    if (shouldExpand) {
+      setIsExpanded(true);
+    }
+  }, [shouldExpand]);
 
   return (
-    <div>
+    <div className="mb-1">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className={cn(
-          'w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer',
-          isParentActive
-            ? 'bg-primary-600 text-white hover:bg-primary-700'
-            : hasActiveChild
-            ? 'bg-primary-100 text-primary-700 hover:bg-primary-200'
+          'w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200',
+          hasActiveChild
+            ? 'bg-primary-500 text-white shadow-sm'
             : 'text-gray-700 hover:bg-primary-50 hover:text-primary-600'
         )}
       >
-        <span className="flex items-center">
-          <Icon className="w-5 h-5 mr-3" />
-          {item.title}
+        <span className="flex items-center gap-3">
+          <Icon className="w-5 h-5 flex-shrink-0" />
+          <span className="font-medium">{item.title}</span>
         </span>
         {item.subItems && (
-          <ChevronRight
+          <ChevronDown
             className={cn(
-              'w-4 h-4 transition-transform',
-              isExpanded && 'rotate-90'
+              'w-4 h-4 transition-transform duration-200 flex-shrink-0',
+              isExpanded && 'rotate-180'
             )}
           />
         )}
       </button>
 
-      {isExpanded && item.subItems && (
-        <ul className="mt-1 ml-9 space-y-1">
-          {item.subItems.map((subItem) => (
-            <li key={subItem.path}>
-              <Link
-                href={subItem.path}
-                className={cn(
-                  'block px-4 py-2 rounded-lg text-sm transition-colors cursor-pointer',
-                  pathname === subItem.path
-                    ? 'text-primary-600 font-semibold bg-primary-50'
-                    : 'text-gray-600 hover:text-primary-600 hover:bg-primary-50'
-                )}
-              >
-                {subItem.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
+      {item.subItems && (
+        <div
+          className={cn(
+            'overflow-hidden transition-all duration-200 ease-in-out',
+            isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          )}
+        >
+          <ul className="mt-1 ml-3 pl-6 border-l-2 border-gray-200 space-y-0.5">
+            {item.subItems.map((subItem) => {
+              const isActive =
+                (subItem.path === '/' && pathname === '/') ||
+                (subItem.path !== '/' && pathname === subItem.path) ||
+                (subItem.path !== '/' && pathname.startsWith(subItem.path + '/'));
+
+              return (
+                <li key={subItem.path}>
+                  <Link
+                    href={subItem.path}
+                    className={cn(
+                      'block px-3 py-2 rounded-md text-sm transition-all duration-150',
+                      isActive
+                        ? 'text-primary-700 font-semibold bg-primary-100'
+                        : 'text-gray-600 hover:text-primary-700 hover:bg-gray-50'
+                    )}
+                  >
+                    {subItem.title}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       )}
     </div>
   );
@@ -188,23 +203,31 @@ export function Sidebar() {
   return (
     <aside className="w-64 border-r border-gray-200 bg-white h-full flex flex-col">
       {/* Logo */}
-      <div className="h-16 flex items-center px-6 border-b border-gray-200">
-        <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center mr-3 shadow-sm">
-          <Heart className="w-5 h-5 text-white" />
+      <div className="h-16 flex items-center px-4 border-b border-gray-200 bg-gradient-to-r from-primary-50 to-white">
+        <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-md">
+          <Heart className="w-6 h-6 text-white" />
         </div>
-        <span className="text-lg font-semibold text-primary-600">健康管家</span>
+        <div className="ml-3">
+          <h1 className="text-base font-bold text-gray-900">健康管家</h1>
+          <p className="text-xs text-gray-500">Health Manager</p>
+        </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto p-4">
-        <ul className="space-y-1">
+      <nav className="flex-1 overflow-y-auto px-3 py-4">
+        <div className="space-y-1">
           {menuItems.map((item) => (
-            <li key={item.path}>
-              <SidebarMenuItem item={item} pathname={pathname} />
-            </li>
+            <SidebarMenuItem key={item.path} item={item} pathname={pathname} />
           ))}
-        </ul>
+        </div>
       </nav>
+
+      {/* Footer */}
+      <div className="px-4 py-3 border-t border-gray-200 bg-gray-50">
+        <p className="text-xs text-gray-500 text-center">
+          © 2026 健康管家
+        </p>
+      </div>
     </aside>
   );
 }

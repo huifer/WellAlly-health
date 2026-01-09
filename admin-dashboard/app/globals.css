@@ -1,68 +1,45 @@
 @import "tailwindcss";
 
-@theme {
-  /* ========================================
-   WARM GREEN HEALTHCARE THEME
-   Single Theme - Light Mode Only
-   Hue: 142° (Green) - warmer than Emerald (158°)
-   ======================================== */
-
-  /* Background Colors */
-  --color-background: 0 0% 100%;
-  --color-foreground: 0 0% 3.9%;           /* #0A0A0A - Near black for text */
-
-  /* Primary - Warm Green (Green 500-600 range) */
-  --color-primary: 142 76% 36%;            /* #16A34A - Green 600 */
-  --color-primary-foreground: 0 0% 100%;   /* White text on primary */
-
-  /* Secondary - Lighter Warm Green */
-  --color-secondary: 142 71% 45%;          /* #22C55E - Green 500 */
-  --color-secondary-foreground: 0 0% 100%;
-
-  /* Accent - Darker Warm Green */
-  --color-accent: 142 69% 28%;             /* #15803D - Green 700 */
-  --color-accent-foreground: 0 0% 100%;
-
-  /* Muted - Very light green background */
-  --color-muted: 142 50% 96%;              /* #F0FDF4 - Green 50 */
-  --color-muted-foreground: 0 0% 40%;      /* #666666 - Muted text */
-
-  /* Destructive - Red */
-  --color-destructive: 0 84% 60%;          /* #EF4444 - Red 500 */
-  --color-destructive-foreground: 0 0% 100%;
-
-  /* Semantic Status Colors */
-  --color-success: 142 76% 36%;            /* #16A34A - Same as primary */
-  --color-warning: 38 92% 50%;             /* #F59E0B - Amber 500 */
-  --color-info: 199 89% 48%;               /* #06B6D4 - Cyan 500 */
-
-  /* UI Elements */
-  --color-border: 214 32% 91%;             /* #E2E8F0 - Slate 200 */
-  --color-input: 214 32% 91%;              /* #E2E8F0 - Input border */
-  --color-ring: 142 76% 36%;               /* Focus ring - same as primary */
-
-  /* Radius */
-  --radius: 0.5rem;
+/* Ant Design Reset */
+#__next {
+  min-height: 100vh;
 }
 
-/* ========================================
-BASE STYLES
-======================================== */
-body {
-  background: hsl(var(--color-background));
-  color: hsl(var(--color-foreground));
-  font-feature-settings: "rlig" 1, "calt" 1;
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-/* Improved focus states for accessibility */
-*:focus-visible {
-  outline: 2px solid hsl(var(--color-ring));
+::-webkit-scrollbar-track {
+  background: #f7fee7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d9f99d;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #bef264;
+}
+
+/* Ant Design Menu 自定义样式 */
+.ant-menu-inline .ant-menu-item,
+.ant-menu-inline .ant-menu-submenu-title {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border-radius: 8px;
+}
+
+.ant-menu-submenu-title {
+  font-weight: 500;
+}
+
+/* 移除Ant Design默认的focus outline，使用我们自己的 */
+.ant-menu-item:focus-visible,
+.ant-menu-submenu-title:focus-visible {
+  outline: 2px solid #84cc16;
   outline-offset: 2px;
 }
 
-/* Smooth color transitions */
-* {
-  transition-property: color, background-color, border-color;
-  transition-duration: 150ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}

@@ -12,28 +12,28 @@ const config: Config = {
       colors: {
         /* ========================================
          WARM GREEN HEALTHCARE PALETTE
-         Complete scale from 50 to 950
-         Hue: 142° (warm, yellow-tinted green)
+         温暖的黄绿色调，更柔和舒适
+         Hue: 90-100° (介于黄绿之间)
          ======================================== */
         primary: {
-          50: '#F0FDF4',   // hsl(142 50% 96%)
-          100: '#DCFCE7',  // hsl(142 53% 91%)
-          200: '#BBF7D0',  // hsl(143 55% 84%)
-          300: '#86EFAC',  // hsl(142 60% 73%)
-          400: '#4ADE80',  // hsl(142 71% 60%)
-          500: '#22C55E',  // hsl(142 71% 45%) - Main secondary
-          600: '#16A34A',  // hsl(142 76% 36%) - Main primary
-          700: '#15803D',  // hsl(142 69% 28%) - Accent
-          800: '#166534',  // hsl(142 67% 22%)
-          900: '#14532D',  // hsl(143 75% 14%)
-          950: '#052E16',  // hsl(144 75% 7%)
+          50: '#F7FEE7',   // 极浅的黄绿色
+          100: '#ECFCCB',  // 浅黄绿
+          200: '#D9F99D',  // 柔和黄绿
+          300: '#BEF264',  // 明亮黄绿
+          400: '#A3E635',  // 鲜艳黄绿
+          500: '#84CC16',  // 主色调 - 温暖的草绿
+          600: '#65A30D',  // 深草绿 - 主要使用
+          700: '#4D7C0F',  // 深绿
+          800: '#3F6212',  // 暗绿
+          900: '#365314',  // 深暗绿
+          950: '#1A2E05',  // 极深绿
         },
 
         /* Semantic color aliases for better code readability */
         success: {
-          DEFAULT: '#16A34A',  // Same as primary-600
-          light: '#22C55E',    // Same as primary-500
-          dark: '#15803D',     // Same as primary-700
+          DEFAULT: '#65A30D',  // Same as primary-600
+          light: '#84CC16',    // Same as primary-500
+          dark: '#4D7C0F',     // Same as primary-700
         },
 
         warning: {

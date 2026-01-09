@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+import { ConfigProvider } from 'antd';
+import locale from 'antd/locale/zh_CN';
 import './globals.css';
-import { Sidebar } from '@/components/layout/Sidebar';
-import { Header } from '@/components/layout/Header';
-import { MobileNav } from '@/components/layout/MobileNav';
+import { AppLayout } from '@/components/layout/AppLayout';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,24 +21,39 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body className={inter.className}>
-        <div className="flex h-screen overflow-hidden bg-primary-50/30">
-          {/* Desktop Sidebar */}
-          <div className="hidden lg:block">
-            <Sidebar />
-          </div>
-
-          {/* Main Content */}
-          <div className="flex-1 flex flex-col overflow-hidden">
-            <Header />
-
-            <main className="flex-1 overflow-auto p-6">
-              {children}
-            </main>
-          </div>
-
-          {/* Mobile Navigation */}
-          <MobileNav />
-        </div>
+        <AntdRegistry>
+          <ConfigProvider
+            locale={locale}
+            theme={{
+              token: {
+                colorPrimary: '#84cc16',
+                colorSuccess: '#84cc16',
+                colorInfo: '#06b6d4',
+                colorWarning: '#f59e0b',
+                colorError: '#ef4444',
+                borderRadius: 8,
+                fontSize: 14,
+                fontFamily: inter.style.fontFamily,
+              },
+              components: {
+                Layout: {
+                  siderBg: '#ffffff',
+                  headerBg: '#ffffff',
+                  bodyBg: '#f9fafb',
+                },
+                Menu: {
+                  itemBg: 'transparent',
+                  itemSelectedBg: '#ecfccb',
+                  itemSelectedColor: '#4d7c0f',
+                  itemHoverBg: '#f7fee7',
+                  itemHoverColor: '#65a30d',
+                },
+              },
+            }}
+          >
+            <AppLayout>{children}</AppLayout>
+          </ConfigProvider>
+        </AntdRegistry>
       </body>
     </html>
   );
