@@ -106,6 +106,101 @@
       "created_at": "2025-01-01T00:00:00.000Z",
       "last_updated": "2025-06-20T20:00:00.000Z",
       "version": "1.0"
+    },
+    "weight_loss_program": {
+      "active": false,
+      "start_date": null,
+      "body_composition": {
+        "current": {
+          "date": null,
+          "weight_kg": null,
+          "height_cm": null,
+          "body_fat_percentage": null,
+          "muscle_mass_kg": null,
+          "waist_cm": null,
+          "hip_cm": null,
+          "thigh_cm": null,
+          "arm_cm": null
+        },
+        "history": [],
+        "goals": {
+          "target_weight_kg": null,
+          "target_body_fat_percentage": null,
+          "target_waist_cm": null,
+          "timeline_months": null
+        },
+        "analysis": {
+          "bmi": null,
+          "bmi_category": null,
+          "ideal_weight": null,
+          "weight_to_lose": null,
+          "waist_hip_ratio": null,
+          "abdominal_obesity": null
+        }
+      },
+      "metabolic_profile": {
+        "personal_info": {
+          "gender": null,
+          "age": null,
+          "height_cm": null,
+          "weight_kg": null,
+          "body_fat_percentage": null
+        },
+        "bmr_calculations": {
+          "harris_benedict": {
+            "bmr": null,
+            "formula": "original_1919"
+          },
+          "mifflin_st_jeor": {
+            "bmr": null,
+            "formula": "recommended",
+            "used": true
+          },
+          "katch_mcardle": {
+            "bmr": null,
+            "formula": "based_on_lean_mass"
+          }
+        },
+        "activity_level": {
+          "current": "moderate",
+          "factor": 1.55,
+          "description": "每周3-5天中度运动"
+        },
+        "tdee": {
+          "calories": null,
+          "calculation": null,
+          "breakdown": {
+            "bmr_percent": 65,
+            "exercise_percent": 20,
+            "neat_percent": 15
+          }
+        },
+        "last_calculated": null
+      },
+      "phase_management": {
+        "current_phase": null,
+        "phase_start_date": null,
+        "phases": {
+          "weight_loss": {
+            "start_date": null,
+            "target_weight_loss_kg": null,
+            "actual_weight_loss_kg": null,
+            "progress": null,
+            "status": null
+          },
+          "plateau": {
+            "occurrences": 0,
+            "current_plateau": false,
+            "breakthrough_methods": []
+          },
+          "maintenance": {
+            "start_date": null,
+            "goal_weight": null,
+            "allowable_range_kg": 2.0
+          }
+        },
+        "milestones": []
+      }
     }
   },
   "fitness_analytics": {
