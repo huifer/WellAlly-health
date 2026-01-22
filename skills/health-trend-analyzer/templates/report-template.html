@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康趋势分析报告</title>
+
+    <!-- Tailwind CSS v3.4 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons v0.263 -->
+    <script src="https://unpkg.com/lucide@0.263.0/dist/umd/lucide.js"></script>
+
+    <!-- ECharts v5.5 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+
+    <style>
+        /* 打印样式 */
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .chart-container {
+                page-break-inside: avoid;
+            }
+            section {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* 高对比度模式 */
+        @media (prefers-contrast: high) {
+            .card {
+                border: 2px solid #000;
+            }
+        }
+
+        /* 图表容器 */
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            min-height: 400px;
+        }
+
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- 1. 标题区域 -->
+        <header class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+                        <i data-lucide="activity" class="text-blue-600"></i>
+                        健康趋势分析报告
+                    </h1>
+                    <p class="text-gray-600">
+                        生成时间: <span id="report-date">2025-12-31 12:34:56</span> |
+                        分析周期: <span id="analysis-period">过去 3 个月</span>
+                    </p>
+                </div>
+                <div class="flex gap-2 no-print">
+                    <button onclick="window.print()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center gap-2">
+                        <i data-lucide="printer" class="w-4 h-4"></i>
+                        打印报告
+                    </button>
+                    <button onclick="exportAllCharts()" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        导出图表
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- 2. 总体评估 -->
+        <section id="summary" class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i data-lucide="layout-dashboard" class="text-blue-600"></i>
+                总体评估
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="summary-cards">
+                <!-- 关键指标卡片 - 动态注入 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-600">体重变化</span>
+                        <i data-lucide="trending-down" class="text-green-600"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900">-2.3 kg</div>
+                    <div class="text-sm text-green-600 mt-1">逐渐减重</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-600">BMI 指数</span>
+                        <i data-lucide="heart" class="text-blue-600"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900">21.5</div>
+                    <div class="text-sm text-blue-600 mt-1">正常范围</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-600">症状频率</span>
+                        <i data-lucide="alert-circle" class="text-yellow-600"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900">12 次</div>
+                    <div class="text-sm text-yellow-600 mt-1">轻度波动</div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-600">用药依从性</span>
+                        <i data-lucide="pill" class="text-green-600"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-gray-900">92%</div>
+                    <div class="text-sm text-green-600 mt-1">良好</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 体重/BMI 趋势 -->
+        <section id="weight-bmi" class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i data-lucide="scale" class="text-blue-600"></i>
+                体重/BMI 趋势
+            </h2>
+            <div id="weight-chart" class="chart-container"></div>
+            <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                <h3 class="font-semibold text-blue-900 mb-2">分析结论</h3>
+                <p id="weight-analysis" class="text-blue-800">
+                    在过去 3 个月内，您的体重从 60.8 kg 下降到 58.5 kg，BMI 从 22.3 降至 21.5。
+                    整体呈现稳定下降趋势，仍在正常范围内。建议继续保持当前的生活方式。
+                </p>
+            </div>
+        </section>
+
+        <!-- 4. 症状模式 -->
+        <section id="symptoms" class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i data-lucide="alert-triangle" class="text-yellow-600"></i>
+                症状模式
+            </h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div id="symptoms-chart" class="chart-container"></div>
+                <div id="symptoms-timeline-chart" class="chart-container"></div>
+            </div>
+            <div class="mt-4 p-4 bg-yellow-50 rounded-lg">
+                <h3 class="font-semibold text-yellow-900 mb-2">分析结论</h3>
+                <p id="symptoms-analysis" class="text-yellow-800">
+                    过去 3 个月共记录 12 次症状，最常见的是头痛（4 次）和疲劳（3 次）。
+                    症状频率呈现周期性模式，可能与工作压力相关。建议关注压力管理。
+                </p>
+            </div>
+        </section>
+
+        <!-- 5. 药物依从性 -->
+        <section id="medications" class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i data-lucide="package" class="text-green-600"></i>
+                药物依从性
+            </h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-1">
+                    <div id="medication-gauge" class="chart-container"></div>
+                </div>
+                <div class="lg:col-span-2">
+                    <div id="medication-pie" class="chart-container"></div>
+                </div>
+            </div>
+            <div class="mt-4 p-4 bg-green-50 rounded-lg">
+                <h3 class="font-semibold text-green-900 mb-2">分析结论</h3>
+                <p id="medication-analysis" class="text-green-800">
+                    过去 3 个月总体用药依从性为 92%，表现良好。共应服用 28 剂，实际服用 26 剂，
+                    漏服 2 剂。建议设置用药提醒，进一步提高依从性。
+                </p>
+            </div>
+        </section>
+
+        <!-- 6. 化验结果趋势 -->
+        <section id="lab-results" class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i data-lucide="flask-conical" class="text-purple-600"></i>
+                化验结果趋势
+            </h2>
+            <div id="lab-chart" class="chart-container"></div>
+            <div class="mt-4 p-4 bg-purple-50 rounded-lg">
+                <h3 class="font-semibold text-purple-900 mb-2">分析结论</h3>
+                <p id="lab-analysis" class="text-purple-800">
+                    胆固醇水平从 240 mg/dL 降至 210 mg/dL，已接近正常范围上限（200 mg/dL）。
+                    血糖保持在 5.4-5.6 mmol/L 的正常范围内。改善趋势明显，建议继续保持。
+                </p>
+            </div>
+        </section>
+
+        <!-- 7. 相关性分析 -->
+        <section id="correlations" class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i data-lucide="network" class="text-indigo-600"></i>
+                相关性分析
+            </h2>
+            <div id="correlation-heatmap" class="chart-container"></div>
+            <div class="mt-4 p-4 bg-indigo-50 rounded-lg">
+                <h3 class="font-semibold text-indigo-900 mb-2">分析结论</h3>
+                <p id="correlation-analysis" class="text-indigo-800">
+                    睡眠时长与情绪评分呈现强正相关（r=0.82），睡眠质量对情绪影响显著。
+                    用药依从性与症状频率呈负相关（r=-0.65），规律用药有助于减少症状。
+                    体重变化与情绪评分弱相关（r=0.35）。
+                </p>
+            </div>
+        </section>
+
+        <!-- 8. 情绪与睡眠 -->
+        <section id="mood-sleep" class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i data-lucide="smile" class="text-pink-600"></i>
+                情绪与睡眠
+            </h2>
+            <div id="mood-chart" class="chart-container"></div>
+            <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-4 bg-pink-50 rounded-lg">
+                    <div class="text-sm text-pink-600 mb-1">平均情绪评分</div>
+                    <div class="text-2xl font-bold text-pink-900">7.2 / 10</div>
+                </div>
+                <div class="p-4 bg-pink-50 rounded-lg">
+                    <div class="text-sm text-pink-600 mb-1">平均睡眠时长</div>
+                    <div class="text-2xl font-bold text-pink-900">7.1 小时</div>
+                </div>
+                <div class="p-4 bg-pink-50 rounded-lg">
+                    <div class="text-sm text-pink-600 mb-1">睡眠质量评分</div>
+                    <div class="text-2xl font-bold text-pink-900">良好</div>
+                </div>
+            </div>
+            <div class="mt-4 p-4 bg-pink-50 rounded-lg">
+                <h3 class="font-semibold text-pink-900 mb-2">分析结论</h3>
+                <p id="mood-analysis" class="text-pink-800">
+                    过去 3 个月平均情绪评分为 7.2，整体情绪状态良好。情绪与睡眠呈现同步波动，
+                    睡眠充足时情绪评分明显提升。建议保持规律作息，确保 7-8 小时睡眠。
+                </p>
+            </div>
+        </section>
+
+        <!-- 9. 风险评估与建议 -->
+        <section id="recommendations" class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i data-lucide="lightbulb" class="text-amber-600"></i>
+                风险评估与建议
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="recommendation-cards">
+                <!-- 风险提示 -->
+                <div class="border-l-4 border-red-500 bg-red-50 p-4 rounded-r-lg">
+                    <h3 class="font-semibold text-red-900 mb-2 flex items-center gap-2">
+                        <i data-lucide="alert-circle" class="w-5 h-5"></i>
+                        需要关注
+                    </h3>
+                    <ul class="list-disc list-inside text-red-800 space-y-1">
+                        <li>头痛症状频率较高，建议排查原因</li>
+                        <li>用药漏服情况偶有发生，建议设置提醒</li>
+                    </ul>
+                </div>
+
+                <!-- 积极趋势 -->
+                <div class="border-l-4 border-green-500 bg-green-50 p-4 rounded-r-lg">
+                    <h3 class="font-semibold text-green-900 mb-2 flex items-center gap-2">
+                        <i data-lucide="check-circle" class="w-5 h-5"></i>
+                        积极趋势
+                    </h3>
+                    <ul class="list-disc list-inside text-green-800 space-y-1">
+                        <li>体重/BMI 在健康范围内稳定下降</li>
+                        <li>胆固醇水平明显改善</li>
+                        <li>用药依从性整体良好</li>
+                    </ul>
+                </div>
+
+                <!-- 行为建议 -->
+                <div class="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg">
+                    <h3 class="font-semibold text-blue-900 mb-2 flex items-center gap-2">
+                        <i data-lucide="target" class="w-5 h-5"></i>
+                        行为建议
+                    </h3>
+                    <ul class="list-disc list-inside text-blue-800 space-y-1">
+                        <li>保持规律作息，确保 7-8 小时睡眠</li>
+                        <li>记录头痛日记，识别触发因素</li>
+                        <li>设置用药提醒，减少漏服</li>
+                    </ul>
+                </div>
+
+                <!-- 后续监测 -->
+                <div class="border-l-4 border-purple-500 bg-purple-50 p-4 rounded-r-lg">
+                    <h3 class="font-semibold text-purple-900 mb-2 flex items-center gap-2">
+                        <i data-lucide="calendar" class="w-5 h-5"></i>
+                        后续监测
+                    </h3>
+                    <ul class="list-disc list-inside text-purple-800 space-y-1">
+                        <li>建议 3 个月后复查血脂</li>
+                        <li>继续监测症状变化</li>
+                        <li>定期评估用药效果</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. 免责声明 -->
+        <footer id="disclaimer" class="bg-gray-100 rounded-lg p-6 text-sm text-gray-600">
+            <h3 class="font-semibold text-gray-800 mb-2 flex items-center gap-2">
+                <i data-lucide="info" class="w-5 h-5"></i>
+                免责声明
+            </h3>
+            <p class="mb-2">
+                本报告基于您提供的健康数据生成，仅供参考，不构成医疗诊断、治疗建议或专业医疗意见。
+            </p>
+            <p class="mb-2">
+                报告中的分析和建议由 AI 系统生成，可能存在误差或局限性。如有健康问题或疑虑，
+                请咨询合格的医疗专业人员。
+            </p>
+            <p>
+                生成时间: <span id="disclaimer-date">2025-12-31 12:34:56</span> |
+                数据周期: <span id="disclaimer-period">2025-10-01 至 2025-12-31</span>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // 初始化 Lucide 图标
+        lucide.createIcons();
+
+        // 报告数据对象（将通过 Skill 动态注入）
+        const reportData = {
+            meta: {
+                generatedAt: '2025-12-31T12:34:56',
+                periodStart: '2025-10-01',
+                periodEnd: '2025-12-31',
+                periodMonths: 3
+            },
+            summary: {
+                weightChange: -2.3,
+                weightTrend: '逐渐减重',
+                bmi: 21.5,
+                bmiStatus: '正常范围',
+                symptomCount: 12,
+                symptomTrend: '轻度波动',
+                medicationAdherence: 92,
+                adherenceStatus: '良好'
+            }
+            // 其他数据将在实际使用时注入
+        };
+
+        // 更新页面上的日期和时间
+        document.getElementById('report-date').textContent = reportData.meta.generatedAt;
+        document.getElementById('analysis-period').textContent =
+            `过去 ${reportData.meta.periodMonths} 个月 (${reportData.meta.periodStart} 至 ${reportData.meta.periodEnd})`;
+        document.getElementById('disclaimer-date').textContent = reportData.meta.generatedAt;
+        document.getElementById('disclaimer-period').textContent =
+            `${reportData.meta.periodStart} 至 ${reportData.meta.periodEnd}`;
+
+        // 导出所有图表为 PNG
+        function exportAllCharts() {
+            const chartIds = [
+                'weight-chart',
+                'symptoms-chart',
+                'symptoms-timeline-chart',
+                'medication-gauge',
+                'medication-pie',
+                'lab-chart',
+                'correlation-heatmap',
+                'mood-chart'
+            ];
+
+            chartIds.forEach((id, index) => {
+                setTimeout(() => {
+                    const chart = echarts.getInstanceByDom(document.getElementById(id));
+                    if (chart) {
+                        const url = chart.getDataURL({
+                            type: 'png',
+                            pixelRatio: 2,
+                            backgroundColor: '#fff'
+                        });
+                        const link = document.createElement('a');
+                        link.download = `health-trend-${id}.png`;
+                        link.href = url;
+                        link.click();
+                    }
+                }, index * 500);
+            });
+        }
+
+        // 图表初始化函数（将在 charts-config.js 中定义详细配置）
+        function initCharts() {
+            // 占位符 - 实际图表配置将在 charts-config.js 中提供
+            console.log('Charts initialized with data:', reportData);
+
+            // 示例：初始化体重/BMI 图表
+            const weightChart = echarts.init(document.getElementById('weight-chart'));
+            weightChart.setOption({
+                title: { text: '体重/BMI 变化趋势', left: 'center' },
+                tooltip: { trigger: 'axis' },
+                legend: { data: ['体重 (kg)', 'BMI'], top: 30 },
+                xAxis: {
+                    type: 'category',
+                    data: ['2025-10', '2025-11', '2025-12']
+                },
+                yAxis: [
+                    { type: 'value', name: '体重 (kg)', position: 'left' },
+                    { type: 'value', name: 'BMI', position: 'right' }
+                ],
+                series: [
+                    {
+                        name: '体重',
+                        type: 'line',
+                        data: [60.8, 59.5, 58.5],
+                        smooth: true,
+                        itemStyle: { color: '#3b82f6' }
+                    },
+                    {
+                        name: 'BMI',
+                        type: 'line',
+                        yAxisIndex: 1,
+                        data: [22.3, 21.8, 21.5],
+                        smooth: true,
+                        itemStyle: { color: '#8b5cf6' }
+                    }
+                ]
+            });
+
+            // 其他图表初始化...
+            // （完整的图表配置将在 charts-config.js 中提供）
+        }
+
+        // 页面加载完成后初始化图表
+        window.addEventListener('load', initCharts);
+
+        // 响应式调整图表大小
+        window.addEventListener('resize', () => {
+            const chartIds = [
+                'weight-chart',
+                'symptoms-chart',
+                'symptoms-timeline-chart',
+                'medication-gauge',
+                'medication-pie',
+                'lab-chart',
+                'correlation-heatmap',
+                'mood-chart'
+            ];
+
+            chartIds.forEach(id => {
+                const chart = echarts.getInstanceByDom(document.getElementById(id));
+                if (chart) {
+                    chart.resize();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
