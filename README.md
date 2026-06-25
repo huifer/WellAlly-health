@@ -108,6 +108,18 @@ my-his/
 8. Query all records: `/query all`
 9. Start MDT consultation: `/consult`
 
+## Language Setting
+
+By default, exam data is stored using Chinese folder names (`data/生化检查/`, `data/影像检查/`) for backward compatibility. You can switch new exams to English storage:
+
+```bash
+/language en      # store new exams in data/lab-tests/ and data/imaging/, English output
+/language zh      # switch back to Chinese (default)
+/language         # show the current setting
+```
+
+The setting lives in `data/config.json` (`{ "language": "zh" | "en" }`). It only affects **newly saved** exams — existing records keep their original folders, and `/query` and `/report` recognize both the Chinese and English variants, so old and new data coexist. Test-item names (e.g. `Glucosa`) are stored verbatim and never translated.
+
 ## Data Privacy
 
 - All data stored on local filesystem
