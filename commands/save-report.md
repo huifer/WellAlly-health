@@ -17,6 +17,25 @@ arguments:
 - `image_path`（必填）：检查单图片的本地路径
 - `exam_date`（可选）：检查日期，格式为 YYYY-MM-DD。如果提供此参数，将直接使用该日期；如果未提供，将从图片中自动提取日期。
 
+## 语言设置 / Language
+
+执行任何步骤前，先确定存储语言 `lang`：
+
+- 读取 `data/config.json`，取其中的 `language` 字段。
+- 如果文件不存在或没有该字段，`lang` 默认为 `zh`（保持向后兼容）。
+- `lang` 仅支持 `zh`（中文，默认）和 `en`（English）。
+
+`lang` 决定**目录名**、JSON 中的 `type` 取值，以及面向用户的输出语言。下文凡出现 `{生化目录}` / `{影像目录}` / `{生化type}` / `{影像type}` 占位符，按下表取值：
+
+| 占位符 | `lang=zh`（默认） | `lang=en` |
+|--------|------------------|-----------|
+| `{生化目录}` | `生化检查` | `lab-tests` |
+| `{影像目录}` | `影像检查` | `imaging` |
+| `{生化type}` | `生化检查` | `lab_test` |
+| `{影像type}` | `影像检查` | `imaging` |
+
+当 `lang=en` 时，面向用户的提示与总结使用英文；存储的检验项目名称（如 `Glucosa`、`Colesterol`）**保持原文，不要翻译**。
+
 ## 任务步骤
 
 1. **检查参数**
@@ -95,9 +114,9 @@ arguments:
 4. **生成数据文件**
    根据检查类型生成 JSON 文件：
 
-   **文件路径格式：**
-   - 生化检查：`data/生化检查/YYYY-MM/YYYY-MM-DD_检查类型.json`
-   - 影像检查：`data/影像检查/YYYY-MM/YYYY-MM-DD_检查类型_检查部位.json`
+   **文件路径格式：**（`{生化目录}` / `{影像目录}` 按"语言设置"取值）
+   - 生化检查：`data/{生化目录}/YYYY-MM/YYYY-MM-DD_检查类型.json`
+   - 影像检查：`data/{影像目录}/YYYY-MM/YYYY-MM-DD_检查类型_检查部位.json`
 
    **JSON 数据结构：**
 
@@ -105,7 +124,7 @@ arguments:
    ```json
    {
      "id": "{{生成唯一ID，使用日期+时间戳}}",
-     "type": "生化检查",
+     "type": "{生化type}",
      "date": "YYYY-MM-DD",
      "hospital": "医院名称（如能识别）",
      "original_image": "images/{{原始图片文件名}}",
@@ -126,7 +145,7 @@ arguments:
    ```json
    {
      "id": "{{生成唯一ID，使用日期+时间戳}}",
-     "type": "影像检查",
+     "type": "{影像type}",
      "subtype": "B超/CT/MRI/X光/内窥镜/病理/心电图/乳腺钼靶/PET-CT",
      "date": "YYYY-MM-DD",
      "hospital": "医院名称（如能识别）",
@@ -162,8 +181,8 @@ arguments:
    - 创建月份目录（如不存在）
    - 创建 images 子目录（如不存在）
    - **复制原始图片**到对应目录：
-     - 生化检查：`data/生化检查/YYYY-MM/images/`
-     - 影像检查：`data/影像检查/YYYY-MM/images/`
+     - 生化检查：`data/{生化目录}/YYYY-MM/images/`
+     - 影像检查：`data/{影像目录}/YYYY-MM/images/`
    - 保存 JSON 数据文件
    - 更新全局索引 `data/index.json`
 
@@ -174,7 +193,7 @@ arguments:
      "records": [
        {
          "id": "记录ID",
-         "type": "生化检查/影像检查",
+         "type": "{生化type} 或 {影像type}（按检查类型选择）",
          "date": "YYYY-MM-DD",
          "file_path": "相对路径"
        }
@@ -199,7 +218,7 @@ arguments:
 - 所有日期统一使用 YYYY-MM-DD 格式
 - 数值保持原始格式，不要转换
 - 如果某项数据缺失，该字段设为 null
-- 保持 JSON 格式正确，使用中文双引号
+- 保持 JSON 格式正确，使用标准 JSON 双引号（ASCII `"`），不要使用全角引号
 - **所有检查（生化和影像）都需要保存原始图片**
 
 ## 影像检查详细分析模板
