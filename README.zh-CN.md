@@ -9,7 +9,7 @@
 [![Last Commit](https://img.shields.io/github/last-commit/huifer/WellAlly-health)](https://github.com/huifer/WellAlly-health/commits/main)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/huifer/WellAlly-health/blob/main/.github/CONTRIBUTING.md)
 [![Made with Claude Code](https://img.shields.io/badge/made%20with-Claude%20Code-ff6f00.svg)](https://claude.com/claude-code)
-[![Star History Chart](https://api.star-history.com/svg?repos=huifer/WellAlly-health&type=date&legend=top-left)](https://www.star-history.com/#huifer/WellAlly-health&type=date&legend=top-left)
+[![Star History Chart](https://star-history.dera.page/svg?repos=huifer/WellAlly-health&type=date&legend=top-left)](https://star-history.dera.page/#huifer/WellAlly-health&type=date&legend=top-left)
 
 **WellAlly Health** 是一套**本地优先、由 AI 驱动的个人信息健康档案（PHR）系统**。它把你的化验单、处方、影像报告和日常健康记录，变成一份完全存放在你自己电脑上的、可检索、结构化的健康知识库——无需上云、无需数据库、无需注册账号。
 

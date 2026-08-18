@@ -23,7 +23,7 @@
 
 ## ⭐ Star us on GitHub!
 
-[![Star History Chart](https://api.star-history.com/svg?repos=huifer/WellAlly-health&type=date)](https://www.star-history.com/#huifer/WellAlly-health&type=date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=huifer/WellAlly-health&type=date)](https://star-history.dera.page/#huifer/WellAlly-health&type=date)
 
 ## 🎯 What is it?
 
