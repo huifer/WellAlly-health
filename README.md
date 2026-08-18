@@ -9,7 +9,7 @@
 [![Last Commit](https://img.shields.io/github/last-commit/huifer/WellAlly-health)](https://github.com/huifer/WellAlly-health/commits/main)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/huifer/WellAlly-health/blob/main/.github/CONTRIBUTING.md)
 [![Made with Claude Code](https://img.shields.io/badge/made%20with-Claude%20Code-ff6f00.svg)](https://claude.com/claude-code)
-[![Star History Chart](https://api.star-history.com/svg?repos=huifer/WellAlly-health&type=date&legend=top-left)](https://www.star-history.com/#huifer/WellAlly-health&type=date&legend=top-left)
+[![Star History Chart](https://star-history.dera.page/svg?repos=huifer/WellAlly-health&type=date&legend=top-left)](https://star-history.dera.page/#huifer/WellAlly-health&type=date&legend=top-left)
 
 **WellAlly Health** is a local-first, AI-powered **personal health record (PHR)** system. It turns your medical reports, prescriptions, imaging, and daily health tracking into a private, searchable, structured knowledge base that runs entirely on your own machine — no cloud, no database server, no account required.
 
